@@ -72,9 +72,21 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 
-#include "conveyor.hpp"
-#include "drive.hpp"
-#include "conveyor.hpp"
+//Subsystems
+#include "subsystems/conveyor.hpp"
+#include "subsystems/drive.hpp"
+#include "subsystems/globals.hpp"
+
+//UI
+#include "UI/button.hpp"
+#include "UI/toggleButton.hpp"
+#include "UI/uiGlobals.hpp"
+
+//Utils
+#include "utils/Odom.hpp"
+#include "utils/PID.hpp"
+#include "utils/utilGlobals.hpp"
+
 //#include <iostream>
 #endif
 
