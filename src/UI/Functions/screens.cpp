@@ -40,3 +40,12 @@ void terminalScreen() {
     lv_obj_center(label);
 }
 
+void medicScreen() {
+    lv_obj_t* btn = lv_button_create(medic_screen);
+    lv_obj_set_size(btn, 200, 50);
+    lv_obj_center(btn);
+
+    lv_obj_t* label = lv_label_create(btn);
+    lv_label_set_text(label, "Medic Screen");
+    lv_obj_center(label);
+}

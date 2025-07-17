@@ -1,6 +1,21 @@
 #include "main.h"
 #include "liblvgl/lvgl.h"
 
+const char* mainLabels[4] = {"Odom", "PID", "Terminal", "Medic"};
+
+void buildHomeScreen() {
+
+    lv_obj_set_scrollbar_mode(home_screen, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_scroll_dir(home_screen, LV_DIR_NONE);
+    lv_obj_set_style_bg_color(home_screen, lv_palette_darken(LV_PALETTE_BLUE_GREY, 4), 0);
+    lv_obj_set_style_bg_grad_color(home_screen, lv_color_hex(0x040035), LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(home_screen, LV_GRAD_DIR_VER, 0);
+
+    buildMainButtons();
+    buildToggles();
+    buildFooter();
+}
+
 void buildMainButtons(){
     // Create the main buttons for the home screen
     // These buttons will be used to navigate to different screens
@@ -8,10 +23,11 @@ void buildMainButtons(){
     static lv_style_t pressing_style;
     lv_style_init(&pressing_style);
     lv_style_set_text_font(&pressing_style, &lv_font_montserrat_30);
-    lv_style_set_bg_color(&pressing_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
+    
     //Inside Button Shadow
-    lv_style_set_bg_grad_color(&pressing_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
-    lv_style_set_bg_grad_opa(&pressing_style, LV_OPA_10);
+    //lv_style_set_bg_grad_color(&pressing_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
+    lv_style_set_bg_color(&pressing_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
+    lv_style_set_bg_grad_opa(&pressing_style, LV_OPA_30);
     lv_style_set_bg_grad_dir(&pressing_style, LV_GRAD_DIR_VER);
 
     // SET SHADOW
@@ -28,7 +44,7 @@ void buildMainButtons(){
 
     //Inside Button Shadow
     lv_style_set_bg_grad_color(&main_button_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
-    lv_style_set_bg_grad_opa(&main_button_style, LV_OPA_10);
+    lv_style_set_bg_grad_opa(&main_button_style, LV_OPA_30);
     lv_style_set_bg_grad_dir(&main_button_style, LV_GRAD_DIR_VER);
 
     // SET SHADOW
@@ -45,11 +61,13 @@ void buildMainButtons(){
     //Characteristics of the container
     lv_obj_set_scrollbar_mode(container, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_scroll_dir(container, LV_DIR_NONE);
-    lv_obj_set_size(container, 360, 240);
-    lv_obj_align(container, LV_ALIGN_LEFT_MID, 0, 0);
+    lv_obj_set_size(container, 360, 190);
+    lv_obj_align(container, LV_ALIGN_TOP_LEFT, 0, 0);
 
     lv_obj_set_style_pad_all(container, 4, LV_PART_MAIN);
     lv_obj_set_style_radius(container, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(container, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_set_style_border_opa(container, LV_OPA_TRANSP, LV_PART_MAIN);
 
 
     // SET GRID LAYOUT
@@ -70,7 +88,7 @@ void buildMainButtons(){
         // Create a button in container
         // Set the grid position for each button
         homeButtons[i] = lv_button_create(container);
-        lv_obj_set_size(homeButtons[i], 160, 100);
+        lv_obj_set_size(homeButtons[i], 160, 70);
 
         // Position the buttons in the grid
         lv_obj_set_grid_cell(
@@ -84,7 +102,7 @@ void buildMainButtons(){
 
         // Create a label for each button
         lv_obj_t* label = lv_label_create(homeButtons[i]);
-        lv_label_set_text_fmt(label, "Button %d", i + 1);
+        lv_label_set_text(label, mainLabels[i]);
         lv_obj_center(label);
     }
 
@@ -92,11 +110,10 @@ void buildMainButtons(){
 
 }
 
-
 lv_obj_t* toggleable[3];
 lv_obj_t* toggle_labels[3];
-const char* toggleOff[3] = {"Auton: 1", "Red", "Toggle 3"};
-const char* toggleOn[3] = {"Auton: 2", "Blue", "Toggle 3"};
+const char* toggleOff[3] = {"Auton: 1", "Blue", "Match"};
+const char* toggleOn[3] = {"Auton: 2", "Red", "Skills"};
 
 void toggleCB(lv_event_t* e){
 
@@ -120,12 +137,29 @@ void toggleCB(lv_event_t* e){
     
 }
 
-
 void buildToggles() {
+    static lv_style_t team_pressed_style;
+
+    lv_style_init(&team_pressed_style);
+    lv_style_set_text_font(&team_pressed_style, &lv_font_montserrat_20);
+    lv_style_set_bg_color(&team_pressed_style, lv_palette_darken(LV_PALETTE_RED, 3));
+
+    //Inside Button Shadow
+    lv_style_set_bg_grad_color(&team_pressed_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
+    lv_style_set_bg_grad_opa(&team_pressed_style, LV_OPA_10);
+    lv_style_set_bg_grad_dir(&team_pressed_style, LV_GRAD_DIR_VER);
+
+    // SET SHADOW
+    lv_style_set_shadow_width(&team_pressed_style, 8);
+    lv_style_set_shadow_color(&team_pressed_style, lv_palette_darken(LV_PALETTE_GREY, 4));
+    lv_style_set_shadow_offset_x(&team_pressed_style, -5);
+    lv_style_set_shadow_offset_y(&team_pressed_style, 8);
+    lv_style_set_shadow_opa(&team_pressed_style, LV_OPA_50);
+
     static lv_style_t team_style;
     lv_style_init(&team_style);
     lv_style_set_text_font(&team_style, &lv_font_montserrat_20);
-    lv_style_set_bg_color(&team_style, lv_palette_darken(LV_PALETTE_RED, 3));
+    lv_style_set_bg_color(&team_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
 
      //Inside Button Shadow
     lv_style_set_bg_grad_color(&team_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
@@ -138,6 +172,9 @@ void buildToggles() {
     lv_style_set_shadow_offset_x(&team_style, -5);
     lv_style_set_shadow_offset_y(&team_style, 8);
     lv_style_set_shadow_opa(&team_style, LV_OPA_50);
+    
+    
+    
 
     static lv_style_t toggle_button_style;
     lv_style_init(&toggle_button_style);
@@ -162,10 +199,15 @@ void buildToggles() {
         // Characteristics of the switch container
     lv_obj_set_scrollbar_mode(switchContainer, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_scroll_dir(switchContainer, LV_DIR_NONE);
-    lv_obj_set_size(switchContainer, 120, 240);
-    lv_obj_align(switchContainer, LV_ALIGN_RIGHT_MID, 0, 0);
+    lv_obj_set_size(switchContainer, 120, 190);
+    lv_obj_align(switchContainer, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_obj_set_style_pad_all(switchContainer, 4, LV_PART_MAIN);
+
     lv_obj_set_style_radius(switchContainer, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(switchContainer, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_set_style_border_opa(switchContainer, LV_OPA_TRANSP, LV_PART_MAIN);
+
+
     // SET GRID LAYOUT
     static int32_t col_dsc[] = {LV_PCT(100), LV_GRID_TEMPLATE_LAST};
     static int32_t row_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
@@ -178,7 +220,7 @@ void buildToggles() {
     static int ids[3] = {0, 1, 2};
     for (int i = 0; i < 3; i++) {
         toggleable[i] = lv_button_create(switchContainer);
-        lv_obj_set_size(toggleable[i], 100, 70);
+        lv_obj_set_size(toggleable[i], 100, 40);
 
         lv_obj_set_grid_cell(toggleable[i], 
             LV_GRID_ALIGN_CENTER, 0, 1, 
@@ -190,24 +232,12 @@ void buildToggles() {
         lv_obj_add_flag(toggleable[i], LV_OBJ_FLAG_CHECKABLE);
 
         if (ids[i] == 1){
-            lv_obj_add_style(toggleable[i], &team_style, 0);
+            lv_obj_add_style(toggleable[i], &team_style, LV_STATE_DEFAULT);
+            lv_obj_add_style(toggleable[i], &team_pressed_style, LV_STATE_CHECKED);
         } else {
             lv_obj_add_style(toggleable[i], &toggle_button_style, 0);
         }
-
-
-
-
-        // Set outline style
-        /*
-        lv_obj_set_style_border_width(toggleable[i], 3, LV_PART_MAIN);
-        lv_obj_set_style_border_color(toggleable[i], lv_palette_darken(LV_PALETTE_GREY, 3), LV_PART_MAIN);
-        lv_obj_set_style_border_opa(toggleable[i], LV_OPA_COVER, LV_PART_MAIN);  // fully opaque border
-        lv_obj_set_style_border_side(toggleable[i], LV_BORDER_SIDE_FULL, LV_PART_MAIN);  // full border on all sides
-        lv_obj_set_style_radius(toggleable[i], 8, LV_PART_MAIN);
-        */
         
-
         // Create a label for each toggleable
         toggle_labels[i] = lv_label_create(toggleable[i]);
         lv_label_set_text(toggle_labels[i], toggleOff[i]);
@@ -217,7 +247,5 @@ void buildToggles() {
     }
         
 }
-void buildHomeScreen() {
-    buildMainButtons();
-    buildToggles();
-}
+
+

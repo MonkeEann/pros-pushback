@@ -5,6 +5,7 @@ void buildHomeScreen();
 void buildMainButtons();
 void buildToggles();
 
+extern const char* mainLabels[4];
 
 extern lv_obj_t* toggleable[3];
 extern lv_obj_t* toggle_labels[3];

@@ -4,6 +4,7 @@
 void lvgl_task_fn(void*) {
     while (true) {
         lv_timer_handler();
+        //pros::Task::delay_until(pros::millis() + 5); // Adjust the delay as needed
         pros::delay(5);
     }
 }
@@ -32,7 +33,7 @@ void initializeGUI() {
 
     lv_display_t * display = lv_display_create(480,240);
 
-    static uint8_t buf1[480 * 240 / 8 * 2];
+    static uint8_t buf1[480 * 240 / 10 * 2];
 
     lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
@@ -46,6 +47,7 @@ void initializeGUI() {
         &lv_font_montserrat_20);
 
     lv_display_set_theme(display, theme);
+    
 
     //Create All the Screens
     home_screen = lv_obj_create(NULL);
@@ -58,6 +60,8 @@ void initializeGUI() {
     odomScreen();
     pidScreen();
     terminalScreen();
+    medicScreen();
+    
 
     //Start GUI Task
 	static pros::Task lvglTask(lvgl_task_fn);
