@@ -78,9 +78,9 @@ void opcontrol(void);
 #include "subsystems/globals.hpp"
 
 //UI
-#include "UI/button.hpp"
-#include "UI/toggleButton.hpp"
 #include "UI/uiGlobals.hpp"
+#include "UI/screens.hpp"
+#include "UI/buildHomeScreen.hpp"
 
 //Utils
 #include "utils/Odom.hpp"

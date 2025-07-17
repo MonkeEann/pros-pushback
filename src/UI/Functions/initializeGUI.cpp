@@ -1,0 +1,70 @@
+#include "main.h"
+#include "liblvgl/lvgl.h"
+
+void lvgl_task_fn(void*) {
+    while (true) {
+        lv_timer_handler();
+        pros::delay(5);
+    }
+}
+
+void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p){
+    for (int y = area->y1; y <= area->y2; y++){
+        for (int x = area ->x1; x <= area->x2; x++){
+            
+            int width = area->x2 - area->x1 + 1;
+            int index = (y - area->y1) * width + (x - area->x1);
+
+            uint16_t color = ((uint16_t *)color_p)[index];
+
+            // Write the pixel to your display
+            pros::screen::set_pen(pros::Color(color));
+            pros::screen::draw_pixel(x, y);
+        }
+    }
+
+    lv_display_flush_ready(disp);
+}
+
+void initializeGUI() {
+    lv_init();
+    lv_tick_set_cb(pros::millis);
+
+    lv_display_t * display = lv_display_create(480,240);
+
+    static uint8_t buf1[480 * 240 / 8 * 2];
+
+    lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+
+    lv_display_set_flush_cb(display, my_flush_cb);
+
+    lv_theme_t * theme = lv_theme_default_init(
+        display, 
+        lv_palette_darken(LV_PALETTE_BLUE_GREY, 3), 
+        lv_palette_darken(LV_PALETTE_BLUE, 4), 
+        true,
+        &lv_font_montserrat_20);
+
+    lv_display_set_theme(display, theme);
+
+    //Create All the Screens
+    home_screen = lv_obj_create(NULL);
+    odom_screen = lv_obj_create(NULL);
+    pid_screen = lv_obj_create(NULL);
+    terminal_screen = lv_obj_create(NULL);
+
+    // BUILD UI
+    homeScreen();
+    odomScreen();
+    pidScreen();
+    terminalScreen();
+
+    //Start GUI Task
+	static pros::Task lvglTask(lvgl_task_fn);
+
+    // Start on Home Screen
+    lv_screen_load(home_screen);
+
+}
+
+ 

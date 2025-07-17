@@ -1,21 +1,11 @@
 #include "main.h"
-#include "liblvgl/lvgl.h"
-#include "pros/motors.hpp"
 /**
  * A callback function for LLEMU's center button.
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -24,7 +14,10 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	/*pros::lcd::initialize();
+	
+	initializeGUI();
+	
+	/*
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
@@ -82,8 +75,7 @@ void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
 
 	while (true) {
-		lv_init();
-		lv_timer_handler();
+
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
