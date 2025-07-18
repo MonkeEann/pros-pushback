@@ -13,10 +13,28 @@ void buildHomeScreen() {
 
     buildMainButtons();
     buildToggles();
-    buildFooter();
+    buildFooter(home_screen);
+}
+
+void odomCb(lv_event_t* e){
+    lv_obj_t* btn = lv_event_get_target_obj(e);
+    lv_screen_load(odom_screen);
+}
+void pidCb(lv_event_t* e){
+    lv_obj_t* btn = lv_event_get_target_obj(e);
+    lv_screen_load(pid_screen);
+}
+void terminalCb(lv_event_t* e){
+    lv_obj_t* btn = lv_event_get_target_obj(e);
+    lv_screen_load(terminal_screen);
+}
+void medicCb(lv_event_t* e){
+    lv_obj_t* btn = lv_event_get_target_obj(e);
+    lv_screen_load(medic_screen);
 }
 
 void buildMainButtons(){
+
     // Create the main buttons for the home screen
     // These buttons will be used to navigate to different screens
     // Create style for the buttons
@@ -107,6 +125,10 @@ void buildMainButtons(){
     }
 
     // SET BUTTON CALLBACKS
+    lv_obj_add_event_cb(homeButtons[0], odomCb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(homeButtons[1], pidCb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(homeButtons[2], terminalCb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(homeButtons[3], medicCb, LV_EVENT_CLICKED, NULL);
 
 }
 

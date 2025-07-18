@@ -28,13 +28,16 @@ void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p)
 }
 
 void initializeGUI() {
+    // Initialize and give time source to start LVGL
     lv_init();
     lv_tick_set_cb(pros::millis);
 
+    // Create Display
     lv_display_t * display = lv_display_create(480,240);
 
     static uint8_t buf1[480 * 240 / 10 * 2];
-
+    
+    //Create Buffer and set buffer mode as well as flush callback (cb)
     lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
     lv_display_set_flush_cb(display, my_flush_cb);
@@ -54,6 +57,7 @@ void initializeGUI() {
     odom_screen = lv_obj_create(NULL);
     pid_screen = lv_obj_create(NULL);
     terminal_screen = lv_obj_create(NULL);
+    medic_screen = lv_obj_create(NULL);
 
     // BUILD UI
     homeScreen();

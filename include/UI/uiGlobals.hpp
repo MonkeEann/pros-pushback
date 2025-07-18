@@ -29,7 +29,7 @@ void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p)
 
 void initializeGUI();
 
-void buildFooter();
+void buildFooter(lv_obj_t* parent);
 void exitButtonCb(lv_event_t * e);
 
 #endif //UI_GLOBALS_HPP
