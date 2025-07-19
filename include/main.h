@@ -75,7 +75,7 @@ void opcontrol(void);
 //Subsystems
 #include "subsystems/conveyor.hpp"
 #include "subsystems/drive.hpp"
-#include "subsystems/globals.hpp"
+#include "subsystems/subGlobals.hpp"
 
 //UI
 #include "UI/uiGlobals.hpp"

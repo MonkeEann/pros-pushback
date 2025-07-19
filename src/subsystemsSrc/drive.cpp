@@ -1,12 +1,10 @@
-#include "main.h"
+#include "subsystems/drive.hpp"
 
-Drivetrain::Drivetrain ()
-: leftDrivetrain({1, 2, 3}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees),
-  rightDrivetrain({-8, -9, -10}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees) {
-    // Constructor initializes left and right motor groups
-}
+Drivetrain::Drivetrain (pros::MotorGroup& leftMotors, pros::MotorGroup& rightMotors)
+    : leftDrMotors(leftMotors), rightDrMotors(rightMotors) {};
 
 void Drivetrain::teleopControl() {
+
     int forwardSpeed = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int turnSpeed = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
@@ -16,11 +14,11 @@ void Drivetrain::teleopControl() {
     setSpeed(leftSpeed, rightSpeed);
 }
 void Drivetrain::setSpeed(double leftSpeed, double rightSpeed) {
-    leftDrivetrain.move(leftSpeed);
-    rightDrivetrain.move(rightSpeed);
+    leftDrMotors.move(leftSpeed);
+    rightDrMotors.move(rightSpeed);
 }
 void Drivetrain::stop() {
-    leftDrivetrain.move(0);
-    rightDrivetrain.move(0);
+    leftDrMotors.move(0);
+    rightDrMotors.move(0);
 }
-    
+  
