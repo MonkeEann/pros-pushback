@@ -1,13 +1,9 @@
 #ifndef ROBOCONFIG_HPP
 #define ROBOCONFIG_HPP
 
-#include "subsystems/subGlobals.hpp"
-#include "subsystems/conveyor.hpp"
-#include "subsystems/drive.hpp"
+#include <cstdint>
 
 // Declare external subsystem objects
-extern Drivetrain monkeDrivetrain;
-extern Conveyor monkeConveyor;
 
 // Motor port declarations
 extern const std::int8_t LEFT_DRIVETRAIN_PORTS[];

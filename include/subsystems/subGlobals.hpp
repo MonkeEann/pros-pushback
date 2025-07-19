@@ -6,7 +6,7 @@
 #include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/ai_vision.hpp"
-#include "roboConfig.hpp"
+
 
 /* PORT CONFIG */
  /* Brain & Controller */

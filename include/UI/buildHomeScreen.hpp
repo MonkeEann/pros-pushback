@@ -1,6 +1,9 @@
 #ifndef BUILDHOMESCREEN_HPP
 #define BUILDHOMESCREEN_HPP
 
+#include "uiGlobals.hpp"
+#include "liblvgl/lvgl.h"
+
 void buildHomeScreen();
 void buildMainButtons();
 void buildToggles();

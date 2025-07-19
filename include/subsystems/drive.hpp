@@ -6,6 +6,8 @@ class Drivetrain {
 private: 
     pros::MotorGroup& leftDrMotors;
     pros::MotorGroup& rightDrMotors;
+
+    
 public:
     Drivetrain(pros::MotorGroup& leftMotors, pros::MotorGroup& rightMotors);
 

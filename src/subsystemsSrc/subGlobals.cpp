@@ -1,4 +1,6 @@
 #include "subsystems/subGlobals.hpp"
+#include "roboConfig.hpp"
+
 
 /*
  * Global instances of various subsystems

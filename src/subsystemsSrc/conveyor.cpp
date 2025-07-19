@@ -1,19 +1,20 @@
 #include "subsystems/conveyor.hpp"
 
-Conveyor::Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& topRollerMotor)
-    : backRollers(backRollersMotor), inMotor(intakeMotor), hrdMotor(hoardMotor), topRoller(topRollerMotor) {};
+Conveyor::Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& topRollerMotor, const double& speed)
+    : backRollers(backRollersMotor), inMotor(intakeMotor), hrdMotor(hoardMotor), topRoller(topRollerMotor), spd(speed) {}
 
+double Conveyor::getConveyorSpeed() const {return 127 * spd; }
 void Conveyor::storeBlocksLow() {
-    inMotor.move(-conveyorSpeed);
-    backRollers.move(-conveyorSpeed);
-    topRoller.move(-conveyorSpeed);
-    hrdMotor.move(-conveyorSpeed);
+    inMotor.move(-getConveyorSpeed());
+    backRollers.move(-getConveyorSpeed());
+    topRoller.move(-getConveyorSpeed());
+    hrdMotor.move(-getConveyorSpeed());
 }
 void Conveyor::scoreLow() {
-    inMotor.move(conveyorSpeed);
-    backRollers.move(-conveyorSpeed);
-    topRoller.move(-conveyorSpeed);
-    hrdMotor.move(conveyorSpeed);
+    inMotor.move(getConveyorSpeed());
+    backRollers.move(-getConveyorSpeed());
+    topRoller.move(-getConveyorSpeed());
+    hrdMotor.move(getConveyorSpeed());
 }
 void Conveyor::scoreMid() {
 

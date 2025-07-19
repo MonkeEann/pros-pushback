@@ -1,5 +1,5 @@
-#include "main.h"
-#include "liblvgl/lvgl.h"
+#include "UI/screenHandler.hpp"
+#include "UI/buildHomeScreen.hpp"
 
 void homeScreen() {
     buildHomeScreen();

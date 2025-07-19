@@ -1,5 +1,4 @@
-#include "main.h"
-#include "liblvgl/lvgl.h"
+#include "UI/buildHomeScreen.hpp"
 
 const char* mainLabels[4] = {"Odom", "PID", "Terminal", "Medic"};
 

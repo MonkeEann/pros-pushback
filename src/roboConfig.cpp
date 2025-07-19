@@ -5,13 +5,9 @@
  * To do so we will have variables for each motors port and subsystem speeds.
  */
 
-// Subsystems
-Drivetrain monkeDrivetrain(leftDrivetrain, rightDrivetrain);
-Conveyor monkeConveyor(backRollersMotor, intakeMotor, hoardMotor, topRollerMotor);
-
 // Motor Ports
-const std::int8_t LEFT_DRIVETRAIN_PORTS[] = {1, 2, 3}; 
-const std::int8_t RIGHT_DRIVETRAIN_PORTS[] = {-8, -9, -10}; 
+const std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {1, 2, 3}; 
+const std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-8, -9, -10}; 
 
 const int INTAKE_MOTOR_PORT = 4;
 const int BACK_ROLLERS_PORT = 5;
