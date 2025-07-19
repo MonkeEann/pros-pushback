@@ -14,13 +14,13 @@ pros::AIVision monke_vision(1);
 
 /* Motors */
 /* Drivetrain Motors */
-pros::MotorGroup leftDrivetrain({1, 2, 3}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
-pros::MotorGroup rightDrivetrain({-8, -9, -10}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
+pros::MotorGroup leftDrivetrain({LEFT_DRIVETRAIN_PORTS[0],LEFT_DRIVETRAIN_PORTS[1], LEFT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
+pros::MotorGroup rightDrivetrain({RIGHT_DRIVETRAIN_PORTS[0], RIGHT_DRIVETRAIN_PORTS[1], RIGHT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 
 /* Conveyor Motors */
-pros::Motor intakeMotor(4, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor bottomBackMotor(5, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor hoardMotor(6, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor backConveyorMotors(7, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor hoardMotor(HOARD_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
 

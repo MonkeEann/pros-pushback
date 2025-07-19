@@ -6,6 +6,7 @@
 #include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/ai_vision.hpp"
+#include "roboConfig.hpp"
 
 /* PORT CONFIG */
  /* Brain & Controller */
@@ -22,8 +23,8 @@ extern pros::MotorGroup rightDrivetrain;
 
 /* CONVEYOR/INTAKE MOTORS */
 extern pros::Motor intakeMotor;
-extern pros::Motor bottomBackMotor;
+extern pros::Motor backRollersMotor;
 extern pros::Motor hoardMotor;
-extern pros::Motor backConveyorMotors;
+extern pros::Motor topRollerMotor;
 
 #endif // SUBGLOBALS_HPP

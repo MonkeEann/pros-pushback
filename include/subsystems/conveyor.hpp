@@ -2,16 +2,23 @@
 #define CONVEYOR_HPP
 
 #include "subsystems/subGlobals.hpp"
+#include "roboConfig.hpp"
 class Conveyor {
 private:
 // Private members for conveyor control can be added here
-    pros::Motor& btmMotor;
+    pros::Motor& backRollers;
     pros::Motor& inMotor;
     pros::Motor& hrdMotor;
-    pros::Motor& backConveyor;
+    pros::Motor& topRoller;
+    
+    // Default speed for the conveyor, can be adjusted based on the configuration
+    // This speed is a multiplier for the motor speed, ranging from 0 to 1
+    // For example, 0.8 means the conveyor will run at 80% of its maximum speed
+    // Forward speed is positive, backward speed is negative
+    double conveyorSpeed = 127 * CONVEYOR_SPEED; // Default speed for the conveyor
 
 public:
-    Conveyor(pros::Motor& bottomMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& backConveyorMotors);
+    Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& topRollerMotor);
 
     void storeBlocksLow();
     void scoreLow();

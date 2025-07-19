@@ -70,8 +70,7 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor motor1(-2, pros::v5::MotorGearset::blue, pros::v5::MotorEncoderUnits::degrees); 
+	
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
 
 	while (true) {
