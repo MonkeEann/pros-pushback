@@ -3,8 +3,26 @@
 lv_obj_t *home_screen = nullptr;
 lv_obj_t *odom_screen = nullptr;
 lv_obj_t *pid_screen = nullptr;
+
 lv_obj_t *terminal_screen = nullptr;
+lv_obj_t *terminalTextArea = nullptr;
+
 lv_obj_t *medic_screen = nullptr;
+
+
+void screenSetup(lv_obj_t* parent){
+
+    lv_obj_set_scrollbar_mode(parent, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_scroll_dir(parent, LV_DIR_NONE);
+    
+    lv_obj_set_style_bg_color(parent, lv_palette_darken(LV_PALETTE_BLUE_GREY, 4), 0);
+    lv_obj_set_style_bg_grad_color(parent, lv_color_hex(0x040035), 0);
+    lv_obj_set_style_bg_grad_dir(parent, LV_GRAD_DIR_VER, 0);
+
+    lv_obj_set_style_pad_all(parent, 5, 0);
+
+    buildFooter(parent);
+}
 
 void buildFooter(lv_obj_t *parent)
 {

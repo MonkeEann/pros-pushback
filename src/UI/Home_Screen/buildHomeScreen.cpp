@@ -4,12 +4,7 @@ const char* mainLabels[4] = {"Odom", "PID", "Terminal", "Medic"};
 
 void buildHomeScreen() {
 
-    lv_obj_set_scrollbar_mode(home_screen, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_scroll_dir(home_screen, LV_DIR_NONE);
-    lv_obj_set_style_bg_color(home_screen, lv_palette_darken(LV_PALETTE_BLUE_GREY, 4), 0);
-    lv_obj_set_style_bg_grad_color(home_screen, lv_color_hex(0x040035), LV_PART_MAIN);
-    lv_obj_set_style_bg_grad_dir(home_screen, LV_GRAD_DIR_VER, 0);
-
+    screenSetup(home_screen);
     buildMainButtons();
     buildToggles();
     buildFooter(home_screen);

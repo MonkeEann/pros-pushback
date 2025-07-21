@@ -18,9 +18,14 @@ LV_FONT_DECLARE(modak_20);
 LV_FONT_DECLARE(modak_24);
 
 extern lv_obj_t* home_screen;
+
 extern lv_obj_t* odom_screen;
+
 extern lv_obj_t* pid_screen;
+
 extern lv_obj_t* terminal_screen;
+extern lv_obj_t* terminalTextArea;
+
 extern lv_obj_t* medic_screen;
 
 void lvgl_task_fn(void*);
@@ -29,6 +34,7 @@ void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p)
 
 void initializeGUI();
 
+void screenSetup(lv_obj_t* parent);
 void buildFooter(lv_obj_t* parent);
 void exitButtonCb(lv_event_t * e);
 

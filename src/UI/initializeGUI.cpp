@@ -60,10 +60,10 @@ void initializeGUI() {
     medic_screen = lv_obj_create(NULL);
 
     // BUILD UI
+    terminalScreen();
     homeScreen();
     odomScreen();
     pidScreen();
-    terminalScreen();
     medicScreen();
     
 
@@ -72,7 +72,17 @@ void initializeGUI() {
 
     // Start on Home Screen
     lv_screen_load(home_screen);
-
+    
+    bool isScreensInit = 
+    (home_screen != nullptr) &&
+    (terminal_screen != nullptr) &&
+    (pid_screen != nullptr) &&
+    (odom_screen != nullptr) &&
+    (medic_screen != nullptr);
+    // Check GUI Status
+    if (isScreensInit){
+        printToTerminal(0, "GUI STATUS: ACTIVE");
+    }
 }
 
  

@@ -1,0 +1,7 @@
+#ifndef BUILD_TERMINAL_SCREEN_HPP
+#define BUILD_TERMINAL_SCREEN_HPP
+
+void buildTerminalScreen();
+
+
+#endif //BUILD_TERMINAL_SCREEN_HPP
