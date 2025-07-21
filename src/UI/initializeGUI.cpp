@@ -1,5 +1,6 @@
 #include "main.h"
 #include "liblvgl/lvgl.h"
+#include "uiGlobals.hpp"
 
 void lvgl_task_fn(void*) {
     while (true) {
@@ -68,7 +69,7 @@ void initializeGUI() {
     
 
     //Start GUI Task
-	static pros::Task lvglTask(lvgl_task_fn);
+    lvglTask = new pros::Task(lvgl_task_fn, nullptr, "GUI");
 
     // Start on Home Screen
     lv_screen_load(home_screen);

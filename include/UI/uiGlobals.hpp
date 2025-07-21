@@ -4,6 +4,7 @@
 #include "main.h"
 #include "liblvgl/lvgl.h"
 
+extern pros::Task* lvglTask;
 
 enum screenType {
     HOME_SCREEN,

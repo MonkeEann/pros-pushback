@@ -1,9 +1,12 @@
 #include "utils/terminalFunc.hpp"
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
+#include "pros/rtos.hpp"
 #include <string>
 #include <sstream>
 #include <vector>
+
+pros::Task* printBattery = nullptr;
 
 void printToTerminal(int lineIndex, const char* message){
     if (!terminalTextArea) return;    
@@ -68,4 +71,33 @@ void deleteLines(int startLine, int endLine){
 
 }
 
+void getBattery(){
+    int capacity = pros::battery::get_capacity();
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "BATTERY LEVEL: %d%%", capacity);
+
+    printToTerminal(1, buffer);
+}
+
+void batteryTaskFn(void* param) {
+    while (true) {
+        getBattery();
+        pros::delay(1000); 
+    }
+}
+void debugTaskFn(void* param){
+
+    while (true) {
+        printf("Task: %s Priority: %d\n",
+            lvglTask->get_name(),
+            lvglTask->get_priority()
+        );
+        printf("Task: %s Priority: %d\n",
+            printBattery->get_name(),
+            printBattery->get_priority()
+        );
+        pros::delay(5000);
+    }
+    
+}
 

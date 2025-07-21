@@ -1,5 +1,6 @@
 #include "UI/uiGlobals.hpp"
 
+pros::Task* lvglTask = nullptr;
 lv_obj_t *home_screen = nullptr;
 lv_obj_t *odom_screen = nullptr;
 lv_obj_t *pid_screen = nullptr;
@@ -8,6 +9,7 @@ lv_obj_t *terminal_screen = nullptr;
 lv_obj_t *terminalTextArea = nullptr;
 
 lv_obj_t *medic_screen = nullptr;
+
 
 
 void screenSetup(lv_obj_t* parent){
