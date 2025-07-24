@@ -73,6 +73,7 @@ void opcontrol(void);
 #ifdef __cplusplus
 
 #include "roboConfig.hpp"
+#include "classDefine.hpp"
 
 //Subsystems
 #include "subsystems/conveyor.hpp"
@@ -87,7 +88,6 @@ void opcontrol(void);
 //Utils
 #include "utils/Odom.hpp"
 #include "utils/PID.hpp"
-#include "utils/terminalFunc.hpp"
 #include "utils/utilGlobals.hpp"
 
 //#include <iostream>

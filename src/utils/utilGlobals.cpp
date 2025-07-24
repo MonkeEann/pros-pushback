@@ -1,4 +1,3 @@
-#include "utils/terminalFunc.hpp"
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
 #include "pros/rtos.hpp"

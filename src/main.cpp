@@ -16,9 +16,11 @@
 void initialize() {
 	
 	initializeGUI();
+	odomInit();
 	printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
 	printBattery->set_priority(2);
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
+	
 	
 	/*
 	pros::lcd::set_text(1, "Hello PROS User!");
@@ -76,7 +78,7 @@ void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
 
 	while (true) {
-	
+		
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick

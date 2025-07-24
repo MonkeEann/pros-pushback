@@ -1,5 +1,7 @@
 #include "subsystems/subGlobals.hpp"
 #include "roboConfig.hpp"
+#include "utils/Odom.hpp"
+#include "classDefine.hpp"
 
 
 /*
@@ -7,12 +9,24 @@
  * This file is used to declare global variables that will be used across multiple files. 
  */
 
+/* Tasks */
+pros::Task* odomTask = nullptr;
+
+void odomTaskFn(void* param){
+    while (true){
+        monkeOdom.updateOdom();
+        pros::delay(5);
+    }
+}
+
  /* Brain & Controller */
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Imu imu(20);
 
 /* Sensors */
 pros::AIVision monke_vision(1);
+pros::Rotation sidewaysRotaion(19);
+pros::Rotation forwardRotaion(18); 
 
 /* Motors */
 /* Drivetrain Motors */

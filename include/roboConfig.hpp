@@ -21,4 +21,10 @@ extern const double DRIVETRAIN_SPEED;
 extern const double CONVEYOR_SPEED;
 extern const double INTAKE_SPEED;
 
+extern const bool ODOM_STATUS;
+
+extern const double WHEEL_DIAMETER;
+extern const double SIDEWAYS_ODOM_OFFSET;
+extern const double FORWARD_ODOM_OFFSET;
+
 #endif  // ROBOCONFIG_HPP

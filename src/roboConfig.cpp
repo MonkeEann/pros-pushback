@@ -24,3 +24,8 @@ const double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
 const double CONVEYOR_SPEED = 0.8; // Speed for the intake conveyor
 const double INTAKE_SPEED = 1.0; // Speed for the intake motor
 
+const bool ODOM_STATUS = false;
+const double WHEEL_DIAMETER = 3.25;
+const double SIDEWAYS_ODOM_OFFSET = 2;
+const double FORWARD_ODOM_OFFSET = 2;
+

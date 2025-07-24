@@ -61,7 +61,7 @@ void buildFooter(lv_obj_t *parent)
     lv_style_init(&exit_style);
     lv_style_set_bg_opa(&exit_style, LV_OPA_0);
     lv_style_set_align(&exit_style, LV_ALIGN_CENTER);
-    lv_style_set_size(&exit_style, 225, 40);
+    lv_style_set_size(&exit_style, 215, 40);
     lv_style_set_text_font(&exit_style, &modak_40);
 
     /* Init the pressed state style */
@@ -74,7 +74,7 @@ void buildFooter(lv_obj_t *parent)
 
     lv_style_set_translate_y(&exit_pressed_style, 5);
     lv_style_set_shadow_offset_y(&exit_pressed_style, 3);
-
+    
     static lv_style_transition_dsc_t exit_transition;
     static lv_style_prop_t exit_props[] = {
         LV_STYLE_OUTLINE_WIDTH, LV_STYLE_OUTLINE_OPA, 0};
@@ -110,5 +110,5 @@ void exitButtonCb(lv_event_t *e)
     The exit button's purpose is to appear on every screen and return the user to the home screen if pressed.
     */
     lv_obj_t *btn = lv_event_get_target_obj(e);
-    lv_screen_load(home_screen);
+    lv_screen_load_anim(home_screen, LV_SCR_LOAD_ANIM_FADE_IN, 300, 0, false);
 }

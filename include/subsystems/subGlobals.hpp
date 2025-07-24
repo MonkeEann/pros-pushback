@@ -6,16 +6,20 @@
 #include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/ai_vision.hpp"
+#include "pros/rotation.hpp"
 
+/* Tasks */
+extern pros::Task* odomTask;
+void odomTaskFn(void* param);
 
-/* PORT CONFIG */
- /* Brain & Controller */
+/* Brain & Controller */
 extern pros::Controller master;
 extern pros::Imu imu;
 
-
 /* Sensors */
 extern pros::AIVision monke_vision;
+extern pros::Rotation sidewaysRotaion; 
+extern pros::Rotation forwardRotaion; 
 
 /* Motors */
 /* DRIVETRAIN MOTORS */
