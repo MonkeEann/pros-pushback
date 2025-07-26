@@ -72,10 +72,18 @@ void deleteLines(int startLine, int endLine){
 
 void getBattery(){
     int capacity = pros::battery::get_capacity();
+    
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "BATTERY LEVEL: %d%%", capacity);
 
-    printToTerminal(1, buffer);
+    if (capacity >= 75) {
+        snprintf(buffer, sizeof(buffer), "BATTERY LEVEL: %d%% - GOOD TO COMPETE", capacity);
+    } else if (capacity >= 25 && capacity < 75){
+        snprintf(buffer, sizeof(buffer), "BATTERY LEVEL: %d%% - REPLACE FOR MATCH", capacity);
+    } else {
+        snprintf(buffer, sizeof(buffer), "BATTERY LEVEL: %d%% - CHARGE BATTERY", capacity);
+    }
+
+    printToTerminal(0, buffer);
 }
 
 void batteryTaskFn(void* param) {

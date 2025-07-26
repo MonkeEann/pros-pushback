@@ -52,7 +52,6 @@ void initializeGUI() {
 
     lv_display_set_theme(display, theme);
     
-
     //Create All the Screens
     home_screen = lv_obj_create(NULL);
     odom_screen = lv_obj_create(NULL);
@@ -67,7 +66,6 @@ void initializeGUI() {
     pidScreen();
     medicScreen();
     
-
     //Start GUI Task
     lvglTask = new pros::Task(lvgl_task_fn, nullptr, "GUI");
 
@@ -82,7 +80,7 @@ void initializeGUI() {
     (medic_screen != nullptr);
     // Check GUI Status
     if (isScreensInit){
-        printToTerminal(0, "GUI STATUS: ACTIVE");
+        printToTerminal(8, "GUI STATUS: ACTIVE");
     }
 }
 
