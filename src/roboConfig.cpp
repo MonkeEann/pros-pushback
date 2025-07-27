@@ -4,6 +4,20 @@
  * The main purpose of this file is to make troubleshooting as easy as possible by having all configurations in one place.
  * To do so we will have variables for each motors port and subsystem speeds.
  */
+const bool ODOM_STATUS = false;
+const bool LIVE_TUNING = true;
+
+double DRIVE_PID_KP = 0.0;
+double DRIVE_PID_KI = 0.0;
+double DRIVE_PID_KD = 0.0;
+
+double PID_1_KP = 0.0;
+double PID_1_KI = 0.0;
+double PID_1_KD = 0.0;
+
+double PID_2_KP = 0.0;
+double PID_2_KI = 0.0;
+double PID_2_KD = 0.0;
 
 // Motor Ports
 const std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {1, 2, 3}; 
@@ -24,7 +38,7 @@ const double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
 const double CONVEYOR_SPEED = 0.8; // Speed for the intake conveyor
 const double INTAKE_SPEED = 1.0; // Speed for the intake motor
 
-const bool ODOM_STATUS = false;
+
 const double WHEEL_DIAMETER = 3.25;
 const double SIDEWAYS_ODOM_OFFSET = 2;
 const double FORWARD_ODOM_OFFSET = 2;

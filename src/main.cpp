@@ -17,6 +17,7 @@ void initialize() {
 	
 	initializeGUI();
 	odomInit();
+	PIDScreenInit();
 	printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
 	printBattery->set_priority(2);
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");

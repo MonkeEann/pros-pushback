@@ -84,6 +84,8 @@ void opcontrol(void);
 #include "UI/uiGlobals.hpp"
 #include "UI/screenHandler.hpp"
 #include "UI/buildHomeScreen.hpp"
+#include "UI/buildTerminalScreen.hpp"
+#include "UI/buildPIDScreen.hpp"
 
 //Utils
 #include "utils/Odom.hpp"

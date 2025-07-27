@@ -1,6 +1,8 @@
 #include "UI/uiGlobals.hpp"
 
 pros::Task* lvglTask = nullptr;
+pros::Task* printPIDTask = nullptr;
+
 lv_obj_t *home_screen = nullptr;
 lv_obj_t *odom_screen = nullptr;
 lv_obj_t *pid_screen = nullptr;
@@ -10,7 +12,31 @@ lv_obj_t *terminalTextArea = nullptr;
 
 lv_obj_t *medic_screen = nullptr;
 
+void buttonSetup(lv_obj_t* parent){
+    static lv_style_t style;
+    lv_style_init(&style);
 
+    //Inside Button Shadow
+    lv_style_set_bg_grad_color(&style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
+    lv_style_set_bg_grad_opa(&style, LV_OPA_30);
+    lv_style_set_bg_grad_dir(&style, LV_GRAD_DIR_VER);
+
+    // SET SHADOW
+    lv_style_set_shadow_width(&style, 8);
+    lv_style_set_shadow_color(&style, lv_palette_darken(LV_PALETTE_GREY, 4));
+    lv_style_set_shadow_offset_x(&style, -5);
+    lv_style_set_shadow_offset_y(&style, 8);
+    lv_style_set_shadow_opa(&style, LV_OPA_50);
+
+    lv_obj_add_style(parent, &style, 0);
+
+    static lv_style_t pressing_style;
+    lv_style_init(&pressing_style);
+
+    lv_style_set_bg_color(&pressing_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
+
+    lv_obj_add_style(parent, &pressing_style, LV_STATE_PRESSED);    
+}
 
 void screenSetup(lv_obj_t* parent){
 

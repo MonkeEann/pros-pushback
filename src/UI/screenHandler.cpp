@@ -1,6 +1,7 @@
 #include "UI/screenHandler.hpp"
 #include "UI/buildHomeScreen.hpp"
 #include "UI/buildTerminalScreen.hpp"
+#include "UI/buildPIDScreen.hpp"
 
 void homeScreen() {
     buildHomeScreen();
@@ -11,7 +12,7 @@ void odomScreen() {
 }
 
 void pidScreen() {
-    buildFooter(pid_screen);
+    buildPIDScreen();
 
 }
 

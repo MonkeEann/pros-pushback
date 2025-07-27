@@ -2,6 +2,20 @@
 #define ROBOCONFIG_HPP
 
 #include <cstdint>
+extern const bool ODOM_STATUS;
+extern const bool LIVE_TUNING;
+
+extern double DRIVE_PID_KP;
+extern double DRIVE_PID_KI;
+extern double DRIVE_PID_KD;
+
+extern double PID_1_KP;
+extern double PID_1_KI;
+extern double PID_1_KD;
+
+extern double PID_2_KP;
+extern double PID_2_KI;
+extern double PID_2_KD;
 
 // Declare external subsystem objects
 
@@ -21,7 +35,7 @@ extern const double DRIVETRAIN_SPEED;
 extern const double CONVEYOR_SPEED;
 extern const double INTAKE_SPEED;
 
-extern const bool ODOM_STATUS;
+
 
 extern const double WHEEL_DIAMETER;
 extern const double SIDEWAYS_ODOM_OFFSET;

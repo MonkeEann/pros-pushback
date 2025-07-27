@@ -3,7 +3,7 @@
 
 class PID {
     private:
-        double kp, ki, kd;
+        double kP, kI, kD;
         double error, prevError, integral, derivative;
 
     public:
@@ -12,6 +12,9 @@ class PID {
         void setConstants(double kp, double ki, double kd);
         double calculate(double target, double current);
 
+        double getkP() const;
+        double getkI() const;
+        double getkD() const;
         double getError() const;
         double getprevError() const;
 
