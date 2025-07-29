@@ -21,7 +21,6 @@ void PIDScreenInit();
 struct PIDEditContext;
 void adjustPIDCallback(lv_event_t* e);
 
-void containerStyle(lv_obj_t* parent);
 void buildPIDScreen();
 void buildIncrementContainer(lv_obj_t* parent);
 void increment_btn_cb(lv_event_t* e);

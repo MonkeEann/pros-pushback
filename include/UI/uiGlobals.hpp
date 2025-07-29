@@ -37,6 +37,7 @@ void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p)
 
 void initializeGUI();
 
+void containerStyle(lv_obj_t* parent);
 void buttonSetup(lv_obj_t* parent);
 void screenSetup(lv_obj_t* parent);
 void buildFooter(lv_obj_t* parent);

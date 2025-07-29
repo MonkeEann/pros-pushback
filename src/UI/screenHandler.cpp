@@ -2,6 +2,7 @@
 #include "UI/buildHomeScreen.hpp"
 #include "UI/buildTerminalScreen.hpp"
 #include "UI/buildPIDScreen.hpp"
+#include "UI/buildMedicScreen.hpp"
 
 void homeScreen() {
     buildHomeScreen();
@@ -22,6 +23,5 @@ void terminalScreen() {
 }   
 
 void medicScreen() {
-    buildFooter(medic_screen);
-
+    buildMedicScreen();
 }

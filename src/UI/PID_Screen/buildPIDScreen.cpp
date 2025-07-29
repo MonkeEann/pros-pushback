@@ -60,17 +60,6 @@ void adjustPIDCallback(lv_event_t* e) {
 }
 
 
-void containerStyle(lv_obj_t* parent){
-    lv_obj_set_scrollbar_mode(parent, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_scroll_dir(parent, LV_DIR_NONE);
-    lv_obj_align(parent, LV_ALIGN_TOP_LEFT, 0, 0);
-    
-    lv_obj_set_style_pad_top(parent, 0, LV_PART_MAIN);
-    lv_obj_set_style_radius(parent, 0, LV_PART_MAIN);
-    lv_obj_set_style_bg_opa(parent, LV_OPA_0, LV_PART_MAIN);
-    lv_obj_set_style_border_opa(parent, LV_OPA_0, LV_PART_MAIN);
-}
-
 void buildPIDScreen(){
     screenSetup(pid_screen);
     buildFooter(pid_screen);

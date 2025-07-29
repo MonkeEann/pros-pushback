@@ -77,7 +77,7 @@ void autonomous() {}
  */
 void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
-
+	
 	while (true) {
 		
 		// Arcade control scheme
