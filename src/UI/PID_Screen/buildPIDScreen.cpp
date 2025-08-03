@@ -92,7 +92,7 @@ void buildPIDScreen(){
         lv_obj_t* title = lv_label_create(containers[i]);
         lv_label_set_text(title, labels[i]);
         lv_obj_set_style_text_font(title, &lv_font_montserrat_16, 0);
-        //lv_obj_set_style_pad_bottom(title, 5, 0);
+        // lv_obj_set_style_pad_bottom(title, 5, 0);
         lv_obj_set_width(title, LV_PCT(100));
         lv_obj_set_style_text_align(title, LV_TEXT_ALIGN_CENTER, 0);
 
