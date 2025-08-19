@@ -74,6 +74,7 @@ void opcontrol(void);
 
 #include "roboConfig.hpp"
 #include "classDefine.hpp"
+#include "controlKeybinds.hpp"
 
 //Subsystems
 #include "subsystems/conveyor.hpp"

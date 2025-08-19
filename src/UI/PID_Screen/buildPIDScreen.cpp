@@ -101,7 +101,7 @@ void buildPIDScreen(){
     
 
     for (int i = 0; i < 6; i++){
-        PIDbuttons[i] = lv_button_create(containers[i/3]);
+        PIDbuttons[i] = lv_button_create(containers[i/3]); //Integer Division -- less than 3 puts into container 0, and more than in 1
         buttonSetup(PIDbuttons[i]);
         lv_obj_set_size(PIDbuttons[i], LV_PCT(100), 35);
 
