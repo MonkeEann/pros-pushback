@@ -39,4 +39,4 @@ pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros:
 pros::Motor hoardMotor(HOARD_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
-
+pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);

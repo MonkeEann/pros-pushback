@@ -127,15 +127,15 @@ void buildFooter(lv_obj_t *parent)
     /* Init Labels */
     lv_obj_t *exit_label = lv_label_create(exit_button);
     lv_label_set_text(exit_label, "MonkeBots");
-    lv_obj_align(exit_label, LV_ALIGN_CENTER, 0, -2.5);
+    lv_obj_align(exit_label, LV_ALIGN_CENTER, 0, -2);
 
     lv_obj_t *footer_label_Left = lv_label_create(footer);
     lv_label_set_text(footer_label_Left, "9922z");
-    lv_obj_align(footer_label_Left, LV_ALIGN_LEFT_MID, 30, -2.5);
+    lv_obj_align(footer_label_Left, LV_ALIGN_LEFT_MID, 30, -2);
 
     lv_obj_t *footer_label_Right = lv_label_create(footer);
     lv_label_set_text(footer_label_Right, "9922z");
-    lv_obj_align(footer_label_Right, LV_ALIGN_RIGHT_MID, -30, -2.5);
+    lv_obj_align(footer_label_Right, LV_ALIGN_RIGHT_MID, -30, -2);
 
     // In order for the event to be triggered when the button is pressed, we need to add an event callback
     lv_obj_add_event_cb(exit_button, exitButtonCb, LV_EVENT_CLICKED, NULL);

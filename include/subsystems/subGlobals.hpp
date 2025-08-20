@@ -3,7 +3,6 @@
 
 #include "pros/motors.hpp"
 #include "pros/motor_group.hpp"
-#include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/ai_vision.hpp"
 #include "pros/rotation.hpp"
@@ -31,5 +30,7 @@ extern pros::Motor intakeMotor;
 extern pros::Motor backRollersMotor;
 extern pros::Motor hoardMotor;
 extern pros::Motor topRollerMotor;
+
+extern pros::Motor testMotor;
 
 #endif // SUBGLOBALS_HPP

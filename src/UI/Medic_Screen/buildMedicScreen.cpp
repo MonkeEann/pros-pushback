@@ -1,5 +1,7 @@
 #include "UI/buildMedicScreen.hpp"
 #include "UI/uiGlobals.hpp"
+#include "subsystems/subGlobals.hpp"
+#include <cmath>
 
 lv_obj_t* motorInfoContainers[10];
 lv_obj_t* motorTA[10];

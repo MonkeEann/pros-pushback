@@ -1,5 +1,6 @@
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
+#include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 #include <string>
 #include <sstream>

@@ -2,6 +2,7 @@
 #include "UI/uiGlobals.hpp"
 #include "roboConfig.hpp"
 #include "classDefine.hpp"
+#include <cmath>
 
 
 lv_obj_t* PIDlabels[6];

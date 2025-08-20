@@ -1,7 +1,7 @@
 #ifndef UI_GLOBALS_HPP
 #define UI_GLOBALS_HPP
 
-#include "main.h"
+#include "pros/rtos.hpp"
 #include "liblvgl/lvgl.h"
 
 extern pros::Task* lvglTask;
