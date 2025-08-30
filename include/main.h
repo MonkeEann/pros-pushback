@@ -88,6 +88,8 @@ void opcontrol(void);
 #include "UI/buildTerminalScreen.hpp"
 #include "UI/buildPIDScreen.hpp"
 #include "UI/buildMedicScreen.hpp"
+#include "UI/buildOdomScreen.hpp"
+#include "UI/pushbackfield.h"
 
 //Utils
 #include "utils/Odom.hpp"

@@ -29,13 +29,13 @@ extern double PID_2_KD;
 // Declare external subsystem objects
 
 // Motor port declarations
-constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {1, 2, 3}; 
-constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-8, -9, -10}; 
+constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {11, 12, 13}; 
+constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-18, -19, -20}; 
 
 constexpr int INTAKE_MOTOR_PORT = 4;
 constexpr int BACK_ROLLERS_PORT = 5;
-constexpr int HOARD_MOTOR_PORT = 6;
-constexpr int TOP_ROLLER_PORT = 7;
+constexpr int HOARD_MOTOR_PORT = 7;
+constexpr int TOP_ROLLER_PORT = 6;
 
 // Test Port
 // We will define a test port for testing purposes, this can be used to test individual motors.

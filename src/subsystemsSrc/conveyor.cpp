@@ -17,7 +17,7 @@ void Conveyor::scoreLow() {
     hrdMotor.move(getConveyorSpeed());
 }
 void Conveyor::scoreMid() {
-    inMotor.move(getConveyorSpeed());
+    inMotor.move(-getConveyorSpeed());
     backRollers.move(getConveyorSpeed());
     topRoller.move(-getConveyorSpeed());
     hrdMotor.move(getConveyorSpeed()); // Adjust speed for mid scoring
