@@ -16,13 +16,12 @@
 void initialize() {
 	
 	initializeGUI();
-	odomInit();
 	PIDScreenInit();
 	printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
 	printBattery->set_priority(2);
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
-	
-	
+	imu.reset();
+	monkeChassis.calibrate();
 	/*
 	pros::lcd::set_text(1, "Hello PROS User!");
 
@@ -79,12 +78,9 @@ void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
 	
 	while (true) {
-		
 		// Arcade control scheme
-		monkeDrivetrain.teleopControl();  // Gets the turn left/right from right joystick
-                  // Sets right motor voltage
+		
 		updateControlKeybinds();
-
 
 		pros::delay(20);                               // Run for 20 ms then update
 	}

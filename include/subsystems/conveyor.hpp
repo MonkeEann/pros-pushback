@@ -16,16 +16,19 @@ private:
     // For example, 0.8 means the conveyor will run at 80% of its maximum speed
     // Forward speed is positive, backward speed is negative
     double spd;
+    bool hoodPistonState = false;
+    bool matchLoadPistonState = false;
 
 public:
     Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& topRollerMotor, const double& speed);
 
     double getConveyorSpeed() const;
-    void storeBlocksLow();
+    void storeBlocks();
     void scoreLow();
     void scoreMid();
     void scoreHigh();
     void stopConveyor();
+    void matchLoad();
 
 };
 

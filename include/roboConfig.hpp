@@ -7,7 +7,10 @@
 constexpr pros::controller_digital_e_t SCORE_LOW_BUTTON = pros::E_CONTROLLER_DIGITAL_R1;
 constexpr pros::controller_digital_e_t SCORE_MID_BUTTON = pros::E_CONTROLLER_DIGITAL_R2;
 constexpr pros::controller_digital_e_t SCORE_HIGH_BUTTON = pros::E_CONTROLLER_DIGITAL_L1;
+constexpr pros::controller_digital_e_t STORE_BUTTON = pros::E_CONTROLLER_DIGITAL_L2;
+constexpr pros::controller_digital_e_t MATCH_LOAD_BUTTON = pros::E_CONTROLLER_DIGITAL_X;
 constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+
 
 // Boolean flags for robot configuration
 constexpr bool ODOM_STATUS = false;
@@ -29,8 +32,8 @@ extern double PID_2_KD;
 // Declare external subsystem objects
 
 // Motor port declarations
-constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {11, 12, 13}; 
-constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-18, -19, -20}; 
+constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {-1, 2, 3}; 
+constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-8, 9, -10}; 
 
 constexpr int INTAKE_MOTOR_PORT = 4;
 constexpr int BACK_ROLLERS_PORT = 5;
@@ -44,6 +47,8 @@ constexpr int TEST_PORT = 20;
 // Subsystem Speeds
 
 constexpr double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
+constexpr double JOYSTICK_DEADBAND = 3; // Deadband for joystick inputs
+constexpr double DRIVETRAIN_DEADBAND = 10; // Deadband for drivetrain movement
 constexpr double CONVEYOR_SPEED = 0.8; // Speed for the intake conveyor
 constexpr double INTAKE_SPEED = 1.0; // Speed for the intake motor
 

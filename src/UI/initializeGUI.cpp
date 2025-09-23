@@ -1,6 +1,8 @@
-#include "main.h"
 #include "liblvgl/lvgl.h"
 #include "uiGlobals.hpp"
+#include "pros/screen.hpp"
+#include "utils/utilGlobals.hpp"
+#include "UI/screenHandler.hpp"
 
 void lvgl_task_fn(void*) {
     while (true) {

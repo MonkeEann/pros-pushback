@@ -78,7 +78,6 @@ void opcontrol(void);
 
 //Subsystems
 #include "subsystems/conveyor.hpp"
-#include "subsystems/drive.hpp"
 #include "subsystems/subGlobals.hpp"
 
 //UI
@@ -92,7 +91,6 @@ void opcontrol(void);
 #include "UI/pushbackfield.h"
 
 //Utils
-#include "utils/Odom.hpp"
 #include "utils/PID.hpp"
 #include "utils/utilGlobals.hpp"
 

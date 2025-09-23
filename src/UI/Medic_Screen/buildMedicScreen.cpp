@@ -18,16 +18,12 @@ const char* motorLabels[10] = {
     "Top Roller Motor\n"};
 
 double temperatures[10] = {
-    leftDrivetrain.get_temperature(0), leftDrivetrain.get_temperature(1), leftDrivetrain.get_temperature(2), 
-    rightDrivetrain.get_temperature(0), rightDrivetrain.get_temperature(1), rightDrivetrain.get_temperature(2), 
     intakeMotor.get_temperature(), 
     backRollersMotor.get_temperature(), 
     hoardMotor.get_temperature(), 
     topRollerMotor.get_temperature()};
 
 int32_t voltage[10] = {
-    leftDrivetrain.get_voltage(0), leftDrivetrain.get_voltage(1), leftDrivetrain.get_voltage(2), 
-    rightDrivetrain.get_voltage(0), rightDrivetrain.get_voltage(1), rightDrivetrain.get_voltage(2), 
     intakeMotor.get_voltage(), 
     backRollersMotor.get_voltage(), 
     hoardMotor.get_voltage(), 
@@ -35,8 +31,6 @@ int32_t voltage[10] = {
 };
 
 int32_t current[10] = {
-    leftDrivetrain.get_current_draw(0), leftDrivetrain.get_current_draw(1), leftDrivetrain.get_current_draw(2), 
-    rightDrivetrain.get_current_draw(0), rightDrivetrain.get_current_draw(1), rightDrivetrain.get_current_draw(2), 
     intakeMotor.get_current_draw(), 
     backRollersMotor.get_current_draw(), 
     hoardMotor.get_current_draw(), 
@@ -160,34 +154,17 @@ void reload_btn_cb(lv_event_t* e){
     drawLabels();
 }
 void updateMotorData(){
-    temperatures[0] = leftDrivetrain.get_temperature(0);
-    temperatures[1] = leftDrivetrain.get_temperature(1);
-    temperatures[2] = leftDrivetrain.get_temperature(2);
-    temperatures[3] = rightDrivetrain.get_temperature(0);
-    temperatures[4] = rightDrivetrain.get_temperature(1);
-    temperatures[5] = rightDrivetrain.get_temperature(2);
     temperatures[6] = intakeMotor.get_temperature();
     temperatures[7] = backRollersMotor.get_temperature();
     temperatures[8] = hoardMotor.get_temperature();
     temperatures[9] = topRollerMotor.get_temperature();
 
-    voltage[0] = leftDrivetrain.get_voltage(0);
-    voltage[1] = leftDrivetrain.get_voltage(1);
-    voltage[2] = leftDrivetrain.get_voltage(2);
-    voltage[3] = rightDrivetrain.get_voltage(0);
-    voltage[4] = rightDrivetrain.get_voltage(1);
-    voltage[5] = rightDrivetrain.get_voltage(2);
+
     voltage[6] = intakeMotor.get_voltage();
     voltage[7] = backRollersMotor.get_voltage();
     voltage[8] = hoardMotor.get_voltage();
     voltage[9] = topRollerMotor.get_voltage();
 
-    current[0] = leftDrivetrain.get_current_draw(0);
-    current[1] = leftDrivetrain.get_current_draw(1);
-    current[2] = leftDrivetrain.get_current_draw(2);
-    current[3] = rightDrivetrain.get_current_draw(0);
-    current[4] = rightDrivetrain.get_current_draw(1);
-    current[5] = rightDrivetrain.get_current_draw(2);
     current[6] = intakeMotor.get_current_draw();
     current[7] = backRollersMotor.get_current_draw();
     current[8] = hoardMotor.get_current_draw();
