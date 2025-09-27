@@ -25,14 +25,14 @@ void updateControlKeybinds() {
         monkeConveyor.matchLoad();
     } else if (master.get_digital_new_press(HOOD_BUTTON)){
         monkeConveyor.hoodPistonManual();
-    } else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
+    } /*else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
         runAuto(autonRoutine::BLUE_LEFT);
     } else if (master.get_digital_new_press(TEST_BUTTON)){
         // Test function can be added here
         monkeChassis.turnToHeading(90, 100000);
     } else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
         monkeChassis.cancelAllMotions();
-    } else{
+    }*/else{
         monkeConveyor.stopConveyor();
     }
 }
