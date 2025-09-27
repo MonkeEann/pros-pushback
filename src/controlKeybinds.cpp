@@ -2,16 +2,14 @@
 #include "subsystems/subGlobals.hpp"
 #include "classDefine.hpp"
 #include "roboConfig.hpp"
+#include "auton/auto.hpp"
 
 void updateControlKeybinds() {
     int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
     monkeChassis.curvature(leftY, rightX);
-    //Test Port
-    if(master.get_digital(TEST_BUTTON)){
-    } else {
-    }
+    //Test Por
 
 
     // CONVEYOR CONTROLS
@@ -25,8 +23,16 @@ void updateControlKeybinds() {
         monkeConveyor.storeBlocks();
     } else if (master.get_digital_new_press(MATCH_LOAD_BUTTON)){
         monkeConveyor.matchLoad();
-
-    } else {
+    } else if (master.get_digital_new_press(HOOD_BUTTON)){
+        monkeConveyor.hoodPistonManual();
+    } else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
+        runAuto(autonRoutine::BLUE_LEFT);
+    } else if (master.get_digital_new_press(TEST_BUTTON)){
+        // Test function can be added here
+        monkeChassis.turnToHeading(90, 100000);
+    } else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+        monkeChassis.cancelAllMotions();
+    } else{
         monkeConveyor.stopConveyor();
     }
 }

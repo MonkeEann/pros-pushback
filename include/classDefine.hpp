@@ -5,11 +5,9 @@
 #include "utils/PID.hpp"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 
-
-extern PID drivePID;
-extern PID PID1;
+extern PID angularPID;
+extern PID lateralPID;
 extern PID PID2;
 extern Conveyor monkeConveyor;
 
-
-#endif //CLASS_DEFINE_HPP
+#endif // CLASS_DEFINE_HPP

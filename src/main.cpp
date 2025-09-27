@@ -14,19 +14,9 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	
-	initializeGUI();
-	PIDScreenInit();
-	printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
-	printBattery->set_priority(2);
-	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
-	imu.reset();
-	monkeChassis.calibrate();
-	/*
-	pros::lcd::set_text(1, "Hello PROS User!");
+	initRobot();	
+	monkeChassis.setPose(43.5, 0, 270);
 
-	pros::lcd::register_btn1_cb(on_center_button);
-*/
 }
 
 /**
@@ -78,10 +68,8 @@ void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
 	
 	while (true) {
-		// Arcade control scheme
-		
 		updateControlKeybinds();
-
+		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }

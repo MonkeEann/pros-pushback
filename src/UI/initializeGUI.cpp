@@ -3,6 +3,8 @@
 #include "pros/screen.hpp"
 #include "utils/utilGlobals.hpp"
 #include "UI/screenHandler.hpp"
+#include "UI/buildPIDScreen.hpp"
+#include "roboConfig.hpp"
 
 void lvgl_task_fn(void*) {
     while (true) {
@@ -67,13 +69,19 @@ void initializeGUI() {
     odomScreen();
     pidScreen();
     medicScreen();
+    buildCalibScreen();
     
     //Start GUI Task
     lvglTask = new pros::Task(lvgl_task_fn, nullptr, "GUI");
 
     // Start on Home Screen
-    lv_screen_load(home_screen);
-    
+    if (UI_TEST_MODE)
+    {
+        lv_screen_load(home_screen);
+    } else {
+        lv_screen_load(calib_screen);
+    }
+        
     bool isScreensInit = 
     (home_screen != nullptr) &&
     (terminal_screen != nullptr) &&
@@ -82,7 +90,8 @@ void initializeGUI() {
     (medic_screen != nullptr);
     // Check GUI Status
     if (isScreensInit){
-        printToTerminal(8, "GUI STATUS: ACTIVE");
+        printToTerminal(9, "GUI STATUS: ACTIVE");
+        PIDScreenInit();
     }
 }
 

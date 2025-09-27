@@ -28,8 +28,9 @@ extern lv_obj_t* pid_screen;
 
 extern lv_obj_t* terminal_screen;
 extern lv_obj_t* terminalTextArea;
-
 extern lv_obj_t* medic_screen;
+extern lv_obj_t* calib_screen;
+extern bool isCalibrated;
 
 void lvgl_task_fn(void*);
 
@@ -42,5 +43,7 @@ void buttonSetup(lv_obj_t* parent);
 void screenSetup(lv_obj_t* parent);
 void buildFooter(lv_obj_t* parent);
 void exitButtonCb(lv_event_t * e);
+void buildCalibScreen();
+void updateCountdown(lv_timer_t* timer);
 
 #endif //UI_GLOBALS_HPP

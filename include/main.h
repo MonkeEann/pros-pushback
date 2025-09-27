@@ -71,6 +71,8 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
+#include "auton/autoGlobals.hpp"
+#include "auton/auto.hpp"
 
 #include "roboConfig.hpp"
 #include "classDefine.hpp"

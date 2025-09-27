@@ -128,8 +128,8 @@ void buildMainButtons(){
 
 lv_obj_t* toggleable[3];
 lv_obj_t* toggle_labels[3];
-const char* toggleOff[3] = {"Auton: 1", "Blue", "Match"};
-const char* toggleOn[3] = {"Auton: 2", "Red", "Skills"};
+const char* toggleOff[3] = {"Auton: 1", "Blue", "Left"};
+const char* toggleOn[3] = {"Auton: 2", "Red", "Right"};
 
 void toggleCB(lv_event_t* e){
 

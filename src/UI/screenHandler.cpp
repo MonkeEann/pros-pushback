@@ -3,12 +3,13 @@
 #include "UI/buildTerminalScreen.hpp"
 #include "UI/buildPIDScreen.hpp"
 #include "UI/buildMedicScreen.hpp"
+#include "UI/buildOdomScreen.hpp"
 
 void homeScreen() {
     buildHomeScreen();
 }
 void odomScreen() {
-    buildFooter(odom_screen);
+    buildOdomScreen();
 
 }
 

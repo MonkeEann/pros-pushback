@@ -7,9 +7,9 @@
 
 // BUTTON CONFIGURATION
 
-double DRIVE_PID_KP = 0.0;
-double DRIVE_PID_KI = 0.0;
-double DRIVE_PID_KD = 0.0;
+double ANGULAR_PID_KP = 7.0;
+double ANGULAR_PID_KI = 0.0;
+double ANGULAR_PID_KD = 36.0;
 
 double PID_1_KP = 0.0;
 double PID_1_KI = 0.0;

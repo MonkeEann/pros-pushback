@@ -29,6 +29,7 @@ public:
     void scoreHigh();
     void stopConveyor();
     void matchLoad();
+    void hoodPistonManual();
 
 };
 

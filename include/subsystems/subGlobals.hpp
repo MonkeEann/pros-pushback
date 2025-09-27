@@ -42,4 +42,8 @@ extern pros::Motor topRollerMotor;
 extern pros::ADIDigitalOut hoodPiston;
 extern pros::ADIDigitalOut matchLoadPiston;
 
+// current Pose
+extern lemlib::Pose currentPose;
+
+
 #endif // SUBGLOBALS_HPP

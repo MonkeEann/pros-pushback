@@ -11,4 +11,5 @@ void getBattery();
 void batteryTaskFn(void* param);
 void debugTaskFn(void* param);
 
+void initRobot();
 #endif //UTIL_GLOBALS

@@ -17,8 +17,8 @@ pros::Imu imu(20);
 
 /* Sensors */
 pros::AIVision monke_vision(1);
-pros::Rotation horizontalRotaion(19);
-pros::Rotation verticalRotaion(18); 
+pros::Rotation horizontalRotaion(11);
+pros::Rotation verticalRotaion(12); 
 
 /* Drivetrain */
 
@@ -55,9 +55,9 @@ lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
 );
 
 // angular PID controller
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
-                                              0, // integral gain (kI)
-                                              10, // derivative gain (kD)
+lemlib::ControllerSettings angular_controller(ANGULAR_PID_KP, // proportional gain (kP)
+                                              ANGULAR_PID_KI, // integral gain (kI)
+                                              ANGULAR_PID_KD, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds
@@ -94,3 +94,5 @@ pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUn
 
 pros::ADIDigitalOut hoodPiston('H');
 pros::ADIDigitalOut matchLoadPiston('G');
+
+lemlib::Pose currentPose = monkeChassis.getPose();

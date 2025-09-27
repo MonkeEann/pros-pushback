@@ -1,5 +1,7 @@
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
+#include "subsystems/subGlobals.hpp"
+#include "roboConfig.hpp"
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 #include <string>
@@ -104,8 +106,37 @@ void debugTaskFn(void* param){
             printBattery->get_name(),
             printBattery->get_priority()
         );
-        pros::delay(5000);
+        printf("Angular | kP: %.2f kI: %.2f kD: %.2f\n",
+			angular_controller.kP,
+			angular_controller.kI,
+			angular_controller.kD
+		);
+        printf("Lateral | kP: %.2f kI: %.2f kD: %.2f\n",
+			lateral_controller.kP,
+			lateral_controller.kI,
+			lateral_controller.kD
+		);
+        pros::delay(1000);
     }
     
 }
 
+
+void initRobot(){
+    initializeGUI();
+
+    if (UI_TEST_MODE)
+    {
+        printf("UI TEST MODE: Skipping IMU Calibration\n");
+    } else {
+         monkeChassis.calibrate();
+         while (imu.is_calibrating() && !isCalibrated)
+    {
+        pros::delay(20);
+    }
+    }
+    
+    printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
+	printBattery->set_priority(2);
+	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
+}

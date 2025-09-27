@@ -9,17 +9,19 @@ constexpr pros::controller_digital_e_t SCORE_MID_BUTTON = pros::E_CONTROLLER_DIG
 constexpr pros::controller_digital_e_t SCORE_HIGH_BUTTON = pros::E_CONTROLLER_DIGITAL_L1;
 constexpr pros::controller_digital_e_t STORE_BUTTON = pros::E_CONTROLLER_DIGITAL_L2;
 constexpr pros::controller_digital_e_t MATCH_LOAD_BUTTON = pros::E_CONTROLLER_DIGITAL_X;
-constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+constexpr pros::controller_digital_e_t HOOD_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+constexpr pros::controller_digital_e_t AUTO_BUTTON = pros::E_CONTROLLER_DIGITAL_DOWN;
+constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_LEFT;
 
 
 // Boolean flags for robot configuration
-constexpr bool ODOM_STATUS = false;
 constexpr bool LIVE_TUNING = true;
+constexpr bool UI_TEST_MODE = false; 
 
 // PID constants for various subsystems
-extern double DRIVE_PID_KP;
-extern double DRIVE_PID_KI;
-extern double DRIVE_PID_KD;
+extern double ANGULAR_PID_KP;
+extern double ANGULAR_PID_KI;
+extern double ANGULAR_PID_KD;
 
 extern double PID_1_KP;
 extern double PID_1_KI;
@@ -32,8 +34,8 @@ extern double PID_2_KD;
 // Declare external subsystem objects
 
 // Motor port declarations
-constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {-1, 2, 3}; 
-constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {-8, 9, -10}; 
+constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {1, -2, -3}; 
+constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {8, -9, 10}; 
 
 constexpr int INTAKE_MOTOR_PORT = 4;
 constexpr int BACK_ROLLERS_PORT = 5;
@@ -44,7 +46,7 @@ constexpr int TOP_ROLLER_PORT = 6;
 // We will define a test port for testing purposes, this can be used to test individual motors.
 constexpr int TEST_PORT = 20;
 
-// Subsystem Speeds
+// Subsystem Settings
 
 constexpr double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
 constexpr double JOYSTICK_DEADBAND = 3; // Deadband for joystick inputs

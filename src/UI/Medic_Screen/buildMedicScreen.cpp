@@ -114,7 +114,7 @@ void drawLabels(){
     char buf[32];
 
     for (int i = 0; i < 10; i++){
-        if(!std::isinf(temperatures[i])){
+        if(!std::isinf(temperatures[i]) && temperatures[i] != 0){
             lv_obj_set_style_text_font(motorTA[i], &lv_font_montserrat_20, 0);
             lv_textarea_set_text(motorTA[i], motorLabels[i]);
 

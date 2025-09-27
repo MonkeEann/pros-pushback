@@ -1,5 +1,6 @@
 #include "UI/buildPIDScreen.hpp"
 #include "UI/uiGlobals.hpp"
+#include "subsystems/subGlobals.hpp"
 #include "roboConfig.hpp"
 #include "classDefine.hpp"
 #include <cmath>
@@ -13,7 +14,7 @@ bool isAdditionMode = true;
 lv_obj_t* incrementButtons[3];
 int selectedIncrementIndex = 0;
 
-PID* pids[2] = {&drivePID, &PID1};
+PID* pids[2] = {&lateralPID, &angularPID};
 
 double prevValues[6] = {0};
 double currentIncrement = 0;
@@ -56,6 +57,16 @@ void adjustPIDCallback(lv_event_t* e) {
 
     // Set the new constants
     ctx->pid->setConstants(kP, kI, kD);
+
+    if(ctx->pid == &lateralPID){
+        lateral_controller.kP = kP;
+        lateral_controller.kI = kI;
+        lateral_controller.kD = kD;
+    } else if (ctx->pid == &angularPID){
+        angular_controller.kP = kP;
+        angular_controller.kI = kI;
+        angular_controller.kD = kD;
+    }
     
     printf("PID updated: pid=%p param=%d -> kP=%.3f, kI=%.3f, kD=%.3f\n", ctx->pid, ctx->paramIndex, kP, kI, kD);
 }
@@ -63,7 +74,6 @@ void adjustPIDCallback(lv_event_t* e) {
 
 void buildPIDScreen(){
     screenSetup(pid_screen);
-    buildFooter(pid_screen);
 
     lv_obj_t* setupContainer = lv_obj_create(pid_screen);
     containerStyle(setupContainer);
@@ -80,7 +90,7 @@ void buildPIDScreen(){
 
 
     lv_obj_t* containers[2];
-    const char* labels[2] = {"Drive PID", "PID 1"};
+    const char* labels[2] = {"Lateral", "Angular"};
 
     for (int i = 0; i < 2; i++)
     {
@@ -117,7 +127,7 @@ void buildPIDScreen(){
 
 }
 void buildIncrementContainer(lv_obj_t* parent){
-    const char* increments[] = {"0.001", "0.01", "0.1"};
+    const char* increments[] = {"0.01", "0.1", "1.0"};
 
     containerStyle(parent);
     lv_obj_set_size(parent, LV_PCT(20), LV_PCT(100));
@@ -138,7 +148,7 @@ void buildIncrementContainer(lv_obj_t* parent){
 
         lv_obj_add_event_cb(incrementButtons[i], increment_btn_cb, LV_EVENT_CLICKED, (void*)(intptr_t)i);
     }
-    currentIncrement = 0.001;
+    currentIncrement = 0.01;
     lv_obj_set_style_bg_color(incrementButtons[selectedIncrementIndex], lv_palette_darken(LV_PALETTE_BLUE,4), 0);
 
     modeToggleBtn = lv_button_create(parent);

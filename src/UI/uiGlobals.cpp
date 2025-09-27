@@ -11,6 +11,9 @@ lv_obj_t *terminal_screen = nullptr;
 lv_obj_t *terminalTextArea = nullptr;
 
 lv_obj_t *medic_screen = nullptr;
+lv_obj_t *calib_screen = nullptr;
+lv_obj_t* calibLabel;
+bool isCalibrated = false;
 
 void containerStyle(lv_obj_t* parent){
     lv_obj_set_scrollbar_mode(parent, LV_SCROLLBAR_MODE_OFF);
@@ -148,4 +151,32 @@ void exitButtonCb(lv_event_t *e)
     */
     lv_obj_t *btn = lv_event_get_target_obj(e);
     lv_screen_load_anim(home_screen, LV_SCR_LOAD_ANIM_FADE_IN, 300, 0, false);
+}
+
+void buildCalibScreen() {
+    calib_screen = lv_obj_create(NULL);
+    screenSetup(calib_screen);
+    
+    calibLabel = lv_label_create(calib_screen);
+    lv_obj_set_style_text_font(calibLabel, &modak_40, 0);
+    lv_obj_center(calibLabel);
+    lv_obj_set_style_y(calibLabel, lv_obj_get_y(calibLabel) - 40, 0);
+    lv_label_set_text(calibLabel, "Calibrating...");
+
+    lv_timer_create(updateCountdown, 1000, NULL);
+}
+void updateCountdown(lv_timer_t* timer) {
+    static int countdown = 5; // Seconds
+
+    if (countdown > 0) {
+        char buffer[32];
+        snprintf(buffer, sizeof(buffer), "Calibrating... %d", countdown);
+        lv_label_set_text(calibLabel, buffer);
+        countdown--;
+    } else {
+        lv_label_set_text(calibLabel, "Calibration Complete!");
+        isCalibrated = true;
+        lv_timer_delete(timer);
+        lv_screen_load(home_screen);
+    }
 }
