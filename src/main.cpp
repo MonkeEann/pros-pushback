@@ -15,7 +15,7 @@
  */
 void initialize() {
 	initRobot();	
-	monkeChassis.setPose(43.5, 0, 270);
+	monkeChassis.setPose(0, 0, 0);
 
 }
 

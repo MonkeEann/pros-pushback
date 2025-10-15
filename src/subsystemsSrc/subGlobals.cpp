@@ -9,6 +9,7 @@
  */
 
 /* Tasks */
+
 pros::Task* odomTask = nullptr;
 
  /* Brain & Controller */
@@ -25,7 +26,7 @@ pros::Rotation verticalRotaion(12);
 pros::MotorGroup leftDrivetrain({LEFT_DRIVETRAIN_PORTS[0],LEFT_DRIVETRAIN_PORTS[1], LEFT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 pros::MotorGroup rightDrivetrain({RIGHT_DRIVETRAIN_PORTS[0], RIGHT_DRIVETRAIN_PORTS[1], RIGHT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 
-Conveyor monkeConveyor(backRollersMotor, intakeMotor, hoardMotor, topRollerMotor, CONVEYOR_SPEED);
+Conveyor monkeConveyor(backRollersMotor, intakeMotor, topRollerMotor, CONVEYOR_SPEED);
 
 lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotaion, lemlib::Omniwheel::NEW_2, -3.3);
 lemlib::TrackingWheel verticalTrackingWheel(&verticalRotaion, lemlib::Omniwheel::NEW_2, .512);
@@ -43,15 +44,15 @@ lemlib::Drivetrain monkeDrivetrain(&leftDrivetrain,
                                     450, // drivetrain rpm is 360
                                     2); 
 // lateral PID controller
-lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(40, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               3, // derivative gain (kD)
-                                              3, // anti windup
-                                              1, // small error range, in inches
-                                              100, // small error range timeout, in milliseconds
-                                              3, // large error range, in inches
-                                              500, // large error range timeout, in milliseconds
-                                              20 // maximum acceleration (slew)
+                                              0, // anti windup
+                                              0, // small error range, in inches
+                                              0, // small error range timeout, in milliseconds
+                                              0, // large error range, in inches
+                                              0, // large error range timeout, in milliseconds
+                                              0 // maximum acceleration (slew)
 );
 
 // angular PID controller
@@ -86,13 +87,20 @@ lemlib::Chassis monkeChassis(monkeDrivetrain,
 /* Conveyor Motors */
 pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor hoardMotor(HOARD_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
 pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
-
-pros::ADIDigitalOut hoodPiston('H');
-pros::ADIDigitalOut matchLoadPiston('G');
+pros::adi::DigitalOut foldPiston1('B');
+pros::adi::DigitalOut foldPiston2('C');
+pros::adi::DigitalOut matchLoadPiston('H');
 
 lemlib::Pose currentPose = monkeChassis.getPose();
+
+void intakeTask(void *param) {
+    while (true) {
+        monkeConveyor.storeBlocks();
+        pros::delay(10);
+    }
+}
+

@@ -1,7 +1,7 @@
 #include "subsystems/subGlobals.hpp"
 #include "auton/auto.hpp"
 
-ASSET(BlueCenterLongPath_txt);
+ASSET(BlueCenterLongPath2_txt);
 
 void runAuto(autonRoutine routine){
     switch(routine){
@@ -10,7 +10,9 @@ void runAuto(autonRoutine routine){
             break;
         case autonRoutine::BLUE_LEFT:
             // Run left side auton
-            monkeChassis.follow(BlueCenterLongPath_txt, 15, 2000);
+            intakeTask(nullptr);
+            monkeChassis.moveToPose(20, 15, 90, 4000);       
+
             break;
         case autonRoutine::BLUE_RIGHT:
             // Run right side auton

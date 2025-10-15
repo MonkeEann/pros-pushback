@@ -9,14 +9,14 @@ constexpr pros::controller_digital_e_t SCORE_MID_BUTTON = pros::E_CONTROLLER_DIG
 constexpr pros::controller_digital_e_t SCORE_HIGH_BUTTON = pros::E_CONTROLLER_DIGITAL_L1;
 constexpr pros::controller_digital_e_t STORE_BUTTON = pros::E_CONTROLLER_DIGITAL_L2;
 constexpr pros::controller_digital_e_t MATCH_LOAD_BUTTON = pros::E_CONTROLLER_DIGITAL_X;
-constexpr pros::controller_digital_e_t HOOD_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+constexpr pros::controller_digital_e_t FOLD_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
 constexpr pros::controller_digital_e_t AUTO_BUTTON = pros::E_CONTROLLER_DIGITAL_DOWN;
 constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_LEFT;
 
 
 // Boolean flags for robot configuration
-constexpr bool LIVE_TUNING = true;
-constexpr bool UI_TEST_MODE = false; 
+constexpr bool LIVE_TUNING = false;
+constexpr bool UI_TEST_MODE = true; 
 
 // PID constants for various subsystems
 extern double ANGULAR_PID_KP;
@@ -39,8 +39,7 @@ constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {8, -9, 10};
 
 constexpr int INTAKE_MOTOR_PORT = 4;
 constexpr int BACK_ROLLERS_PORT = 5;
-constexpr int HOARD_MOTOR_PORT = 7;
-constexpr int TOP_ROLLER_PORT = 6;
+constexpr int TOP_ROLLER_PORT = -6;
 
 // Test Port
 // We will define a test port for testing purposes, this can be used to test individual motors.

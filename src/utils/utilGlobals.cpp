@@ -1,6 +1,7 @@
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
 #include "subsystems/subGlobals.hpp"
+#include "subsystems/conveyor.hpp"
 #include "roboConfig.hpp"
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
@@ -135,7 +136,8 @@ void initRobot(){
         pros::delay(20);
     }
     }
-    
+    foldPiston1.set_value(true);
+    foldPiston2.set_value(true);
     printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
 	printBattery->set_priority(2);
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");

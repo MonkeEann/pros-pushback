@@ -36,14 +36,15 @@ extern lemlib::Chassis monkeChassis;
 /* CONVEYOR/INTAKE MOTORS */
 extern pros::Motor intakeMotor;
 extern pros::Motor backRollersMotor;
-extern pros::Motor hoardMotor;
 extern pros::Motor topRollerMotor;
 
-extern pros::ADIDigitalOut hoodPiston;
-extern pros::ADIDigitalOut matchLoadPiston;
+extern pros::adi::DigitalOut foldPiston1;
+extern pros::adi::DigitalOut foldPiston2;
+extern pros::adi::DigitalOut matchLoadPiston;
 
 // current Pose
 extern lemlib::Pose currentPose;
 
+void intakeTask(void *param);
 
 #endif // SUBGLOBALS_HPP

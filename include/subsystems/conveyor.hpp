@@ -7,7 +7,6 @@ private:
 // Private members for conveyor control can be added here
     pros::Motor& backRollers;
     pros::Motor& inMotor;
-    pros::Motor& hrdMotor;
     pros::Motor& topRoller;
 
     
@@ -16,11 +15,11 @@ private:
     // For example, 0.8 means the conveyor will run at 80% of its maximum speed
     // Forward speed is positive, backward speed is negative
     double spd;
-    bool hoodPistonState = false;
+    bool isConveyorUp = true;
     bool matchLoadPistonState = false;
 
 public:
-    Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& hoardMotor, pros::Motor& topRollerMotor, const double& speed);
+    Conveyor(pros::Motor& backRollersMotor, pros::Motor& intakeMotor, pros::Motor& topRollerMotor, const double& speed);
 
     double getConveyorSpeed() const;
     void storeBlocks();
@@ -29,7 +28,7 @@ public:
     void scoreHigh();
     void stopConveyor();
     void matchLoad();
-    void hoodPistonManual();
+    void foldConveyor();
 
 };
 

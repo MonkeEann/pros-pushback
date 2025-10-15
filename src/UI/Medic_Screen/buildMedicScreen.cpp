@@ -20,20 +20,17 @@ const char* motorLabels[10] = {
 double temperatures[10] = {
     intakeMotor.get_temperature(), 
     backRollersMotor.get_temperature(), 
-    hoardMotor.get_temperature(), 
     topRollerMotor.get_temperature()};
 
 int32_t voltage[10] = {
     intakeMotor.get_voltage(), 
     backRollersMotor.get_voltage(), 
-    hoardMotor.get_voltage(), 
     topRollerMotor.get_voltage()    
 };
 
 int32_t current[10] = {
     intakeMotor.get_current_draw(), 
     backRollersMotor.get_current_draw(), 
-    hoardMotor.get_current_draw(), 
     topRollerMotor.get_current_draw()    
 };
 
@@ -156,17 +153,14 @@ void reload_btn_cb(lv_event_t* e){
 void updateMotorData(){
     temperatures[6] = intakeMotor.get_temperature();
     temperatures[7] = backRollersMotor.get_temperature();
-    temperatures[8] = hoardMotor.get_temperature();
     temperatures[9] = topRollerMotor.get_temperature();
 
 
     voltage[6] = intakeMotor.get_voltage();
     voltage[7] = backRollersMotor.get_voltage();
-    voltage[8] = hoardMotor.get_voltage();
     voltage[9] = topRollerMotor.get_voltage();
 
     current[6] = intakeMotor.get_current_draw();
     current[7] = backRollersMotor.get_current_draw();
-    current[8] = hoardMotor.get_current_draw();
     current[9] = topRollerMotor.get_current_draw();
 }

@@ -9,30 +9,35 @@ void updateControlKeybinds() {
     int rightX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
     monkeChassis.curvature(leftY, rightX);
-    //Test Por
-
 
     // CONVEYOR CONTROLS
     if(master.get_digital(SCORE_LOW_BUTTON)){
         monkeConveyor.scoreLow();
+
     } else if (master.get_digital(SCORE_MID_BUTTON)){
         monkeConveyor.scoreMid();
+
     } else if (master.get_digital(SCORE_HIGH_BUTTON)){
         monkeConveyor.scoreHigh();
+
     } else if (master.get_digital(STORE_BUTTON)){
         monkeConveyor.storeBlocks();
+
     } else if (master.get_digital_new_press(MATCH_LOAD_BUTTON)){
         monkeConveyor.matchLoad();
-    } else if (master.get_digital_new_press(HOOD_BUTTON)){
-        monkeConveyor.hoodPistonManual();
-    } /*else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
+
+    } else if (master.get_digital_new_press(FOLD_BUTTON)){
+        monkeConveyor.foldConveyor();
+
+    } else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
         runAuto(autonRoutine::BLUE_LEFT);
+
     } else if (master.get_digital_new_press(TEST_BUTTON)){
         // Test function can be added here
-        monkeChassis.turnToHeading(90, 100000);
-    } else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
-        monkeChassis.cancelAllMotions();
-    }*/else{
+        //Move 5 in forward
+        monkeChassis.moveToPose(currentPose.x - 10, currentPose.y, currentPose.theta, 100000);
+
+    } else{
         monkeConveyor.stopConveyor();
     }
 }
