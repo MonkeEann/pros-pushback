@@ -1,4 +1,3 @@
-#include "liblvgl/lvgl.h"
 #include "uiGlobals.hpp"
 #include "pros/screen.hpp"
 #include "utils/utilGlobals.hpp"
@@ -94,5 +93,3 @@ void initializeGUI() {
         PIDScreenInit();
     }
 }
-
- 

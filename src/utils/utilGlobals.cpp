@@ -1,7 +1,6 @@
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
 #include "subsystems/subGlobals.hpp"
-#include "subsystems/conveyor.hpp"
 #include "roboConfig.hpp"
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
@@ -9,7 +8,6 @@
 #include <sstream>
 #include <vector>
 
-pros::Task* printBattery = nullptr;
 
 void printToTerminal(int lineIndex, const char* message){
     if (!terminalTextArea) return;    
@@ -90,12 +88,6 @@ void getBattery(){
     printToTerminal(0, buffer);
 }
 
-void batteryTaskFn(void* param) {
-    while (true) {
-        getBattery();
-        pros::delay(1000); 
-    }
-}
 void debugTaskFn(void* param){
 
     while (true) {
@@ -103,20 +95,13 @@ void debugTaskFn(void* param){
             lvglTask->get_name(),
             lvglTask->get_priority()
         );
-        printf("Task: %s Priority: %d\n",
-            printBattery->get_name(),
-            printBattery->get_priority()
-        );
-        printf("Angular | kP: %.2f kI: %.2f kD: %.2f\n",
-			angular_controller.kP,
-			angular_controller.kI,
-			angular_controller.kD
-		);
-        printf("Lateral | kP: %.2f kI: %.2f kD: %.2f\n",
-			lateral_controller.kP,
-			lateral_controller.kI,
-			lateral_controller.kD
-		);
+        auto pose = monkeChassis.getPose();
+        master.print(0, 0, "X: %.2f Y: %.2f Theta: %.2f",
+                         pose.x,
+                         pose.y,
+                         pose.theta);
+        getBattery();
+
         pros::delay(1000);
     }
     
@@ -130,15 +115,11 @@ void initRobot(){
     {
         printf("UI TEST MODE: Skipping IMU Calibration\n");
     } else {
-         monkeChassis.calibrate();
-         while (imu.is_calibrating() && !isCalibrated)
+        while (imu.is_calibrating() && !isCalibrated)
     {
         pros::delay(20);
     }
     }
-    foldPiston1.set_value(true);
-    foldPiston2.set_value(true);
-    printBattery = new pros::Task(batteryTaskFn, nullptr, "Battery Printer");
-	printBattery->set_priority(2);
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
+
 }

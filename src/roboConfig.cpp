@@ -6,6 +6,7 @@
  */
 
 // BUTTON CONFIGURATION
+bool isConveyorUp = false;
 
 double ANGULAR_PID_KP = 7.0;
 double ANGULAR_PID_KI = 0.0;

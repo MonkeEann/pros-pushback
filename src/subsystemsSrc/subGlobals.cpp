@@ -18,18 +18,36 @@ pros::Imu imu(20);
 
 /* Sensors */
 pros::AIVision monke_vision(1);
-pros::Rotation horizontalRotaion(11);
-pros::Rotation verticalRotaion(12); 
+
+pros::Rotation horizontalRotation(11);
+pros::Rotation verticalRotaion(12);
+
+pros::adi::Pneumatics foldPiston1(FOLD_PISTON_1_PORT, isConveyorUp);
+pros::adi::Pneumatics foldPiston2(FOLD_PISTON_2_PORT, isConveyorUp);
+pros::adi::Pneumatics matchLoadPiston(MATCH_LOAD_PORT, false);
 
 /* Drivetrain */
 
+
 pros::MotorGroup leftDrivetrain({LEFT_DRIVETRAIN_PORTS[0],LEFT_DRIVETRAIN_PORTS[1], LEFT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 pros::MotorGroup rightDrivetrain({RIGHT_DRIVETRAIN_PORTS[0], RIGHT_DRIVETRAIN_PORTS[1], RIGHT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
+lemlib::Drivetrain monkeDrivetrain(&leftDrivetrain,
+                                    &rightDrivetrain,
+                                    13, // track width
+                                    lemlib::Omniwheel::NEW_275, 
+                                    450, // drivetrain rpm
+                                    2); 
+/* Conveyor motors must be constructed before any object that holds references to them */
+pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+
+pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
 Conveyor monkeConveyor(backRollersMotor, intakeMotor, topRollerMotor, CONVEYOR_SPEED);
 
-lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotaion, lemlib::Omniwheel::NEW_2, -3.3);
-lemlib::TrackingWheel verticalTrackingWheel(&verticalRotaion, lemlib::Omniwheel::NEW_2, .512);
+lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, -4.25);
+lemlib::TrackingWheel verticalTrackingWheel(&verticalRotaion, lemlib::Omniwheel::NEW_2, 0);
 
 lemlib::OdomSensors sensors(&verticalTrackingWheel,
                             nullptr,
@@ -37,22 +55,17 @@ lemlib::OdomSensors sensors(&verticalTrackingWheel,
                             nullptr,
                             &imu);
 
-lemlib::Drivetrain monkeDrivetrain(&leftDrivetrain,
-                                    &rightDrivetrain,
-                                    12.9, // 10 inch track width
-                                    lemlib::Omniwheel::NEW_275, 
-                                    450, // drivetrain rpm is 360
-                                    2); 
+
 // lateral PID controller
-lemlib::ControllerSettings lateral_controller(40, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(50, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               3, // derivative gain (kD)
                                               0, // anti windup
-                                              0, // small error range, in inches
-                                              0, // small error range timeout, in milliseconds
-                                              0, // large error range, in inches
-                                              0, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew)
+                                              .5, // small error range, in inches
+                                              1000, // small error range timeout, in milliseconds
+                                              3, // large error range, in inches
+                                              2000, // large error range timeout, in milliseconds
+                                              3 // maximum acceleration (slew)
 );
 
 // angular PID controller
@@ -78,29 +91,17 @@ lemlib::ExpoDriveCurve turnCurve(JOYSTICK_DEADBAND, // joystick deadband out of 
                                  1.019 // expo curve gain
 );
 lemlib::Chassis monkeChassis(monkeDrivetrain,
-                             lateral_controller,
-                             angular_controller,
-                             sensors,
-                             &throttleCurve,
-                             &turnCurve
+                            lateral_controller,
+                            angular_controller,
+                            sensors,
+                            &throttleCurve,
+                            &turnCurve
 );
-/* Conveyor Motors */
-pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
-pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
 
-pros::adi::DigitalOut foldPiston1('B');
-pros::adi::DigitalOut foldPiston2('C');
-pros::adi::DigitalOut matchLoadPiston('H');
 
-lemlib::Pose currentPose = monkeChassis.getPose();
+// Avoid calling getPose() at static initialization; sample pose at runtime instead
+lemlib::Pose currentPose(0, 0, 0);
 
-void intakeTask(void *param) {
-    while (true) {
-        monkeConveyor.storeBlocks();
-        pros::delay(10);
-    }
-}
+
 

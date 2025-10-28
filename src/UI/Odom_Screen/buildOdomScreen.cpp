@@ -14,12 +14,14 @@ void poseTimer(lv_timer_t* timer) {
 
     snprintf(buffer, sizeof(buffer), "X: %.2f", currentPose.x);
     lv_label_set_text(poseLabels[0], buffer);
+    printf("X: %.2f\n", currentPose.x);
 
     snprintf(buffer, sizeof(buffer), "Y: %.2f", currentPose.y);
     lv_label_set_text(poseLabels[1], buffer);
- 
+    printf("Y: %.2f\n", currentPose.y);
     snprintf(buffer, sizeof(buffer), "A: %.2f", currentPose.theta);
     lv_label_set_text(poseLabels[2], buffer);
+    printf("Theta: %.2f\n", currentPose.theta);
 
 }
 

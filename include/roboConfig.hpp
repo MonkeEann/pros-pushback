@@ -16,7 +16,9 @@ constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_
 
 // Boolean flags for robot configuration
 constexpr bool LIVE_TUNING = false;
-constexpr bool UI_TEST_MODE = true; 
+constexpr bool UI_TEST_MODE = false; 
+ 
+extern bool isConveyorUp;
 
 // PID constants for various subsystems
 extern double ANGULAR_PID_KP;
@@ -44,6 +46,10 @@ constexpr int TOP_ROLLER_PORT = -6;
 // Test Port
 // We will define a test port for testing purposes, this can be used to test individual motors.
 constexpr int TEST_PORT = 20;
+
+constexpr char FOLD_PISTON_1_PORT = 'B';
+constexpr char FOLD_PISTON_2_PORT = 'C';
+constexpr char MATCH_LOAD_PORT = 'D';
 
 // Subsystem Settings
 

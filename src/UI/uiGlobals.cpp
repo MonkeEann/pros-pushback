@@ -166,7 +166,7 @@ void buildCalibScreen() {
     lv_timer_create(updateCountdown, 1000, NULL);
 }
 void updateCountdown(lv_timer_t* timer) {
-    static int countdown = 5; // Seconds
+    static int countdown = 3; // Seconds
 
     if (countdown > 0) {
         char buffer[32];

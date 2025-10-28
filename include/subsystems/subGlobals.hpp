@@ -18,7 +18,7 @@ extern pros::Imu imu;
 
 /* Sensors */
 extern pros::AIVision monke_vision;
-extern pros::Rotation horizontalRotaion; 
+extern pros::Rotation horizontalRotation; 
 extern pros::Rotation verticalRotaion; 
 
 
@@ -38,13 +38,12 @@ extern pros::Motor intakeMotor;
 extern pros::Motor backRollersMotor;
 extern pros::Motor topRollerMotor;
 
-extern pros::adi::DigitalOut foldPiston1;
-extern pros::adi::DigitalOut foldPiston2;
-extern pros::adi::DigitalOut matchLoadPiston;
+extern pros::adi::Pneumatics foldPiston1;
+extern pros::adi::Pneumatics foldPiston2;
+extern pros::adi::Pneumatics matchLoadPiston;
 
 // current Pose
 extern lemlib::Pose currentPose;
 
-void intakeTask(void *param);
 
 #endif // SUBGLOBALS_HPP

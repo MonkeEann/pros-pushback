@@ -1,7 +1,7 @@
 #ifndef CONVEYOR_HPP
 #define CONVEYOR_HPP
 
-#include "subsystems/subGlobals.hpp"
+#include "pros/motors.hpp"
 class Conveyor {
 private:
 // Private members for conveyor control can be added here
@@ -15,7 +15,6 @@ private:
     // For example, 0.8 means the conveyor will run at 80% of its maximum speed
     // Forward speed is positive, backward speed is negative
     double spd;
-    bool isConveyorUp = true;
     bool matchLoadPistonState = false;
 
 public:

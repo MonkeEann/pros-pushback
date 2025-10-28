@@ -34,8 +34,25 @@ void updateControlKeybinds() {
 
     } else if (master.get_digital_new_press(TEST_BUTTON)){
         // Test function can be added here
-        //Move 5 in forward
-        monkeChassis.moveToPose(currentPose.x - 10, currentPose.y, currentPose.theta, 100000);
+        // Working Auton Code
+        // Intake blocks
+        monkeChassis.moveToPose(25, -31, 315, 4000, {.maxSpeed = 127*0.6}, false);
+        monkeConveyor.storeBlocks();
+        // Move to center high goal
+        monkeChassis.moveToPose(10, -14, 315, 4000, {.maxSpeed = 127*0.6}, false);
+        monkeConveyor.stopConveyor();
+        // Move to matchloader
+        monkeChassis.moveToPose(30,-34, 315, 1000, {.forwards = false, .maxSpeed = 127*0.6, .earlyExitRange = 8});
+        monkeChassis.moveToPose(50,-48, 270, 4000, {.forwards = false, .maxSpeed = 127*0.6});
+        monkeChassis.turnToHeading(90, 4000);
+        //Move Into Loader
+        monkeChassis.moveToPose(55,-48, 270, 4000, {.forwards = false, .maxSpeed = 127*0.6});
+
+        //Test Auton 
+        // Score on long goal
+        monkeChassis.moveToPose(50,-48, 270, 4000, {.forwards = false, .maxSpeed = 127*0.6});
+        monkeChassis.moveToPose(33,-45, 90, 4000, {.forwards = false, .maxSpeed = 127*0.6});
+
 
     } else{
         monkeConveyor.stopConveyor();

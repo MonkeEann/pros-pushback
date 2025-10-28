@@ -1,5 +1,4 @@
 #include "UI/buildTerminalScreen.hpp"
-#include "liblvgl/lvgl.h"
 #include "UI/uiGlobals.hpp"
 
 void buildTerminalScreen(){

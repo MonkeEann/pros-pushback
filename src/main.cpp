@@ -1,4 +1,6 @@
 #include "main.h"
+#include "classDefine.hpp"
+#include "subsystems/subGlobals.hpp"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -14,8 +16,11 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	initRobot();	
-	monkeChassis.setPose(0, 0, 0);
+	initRobot();
+	monkeChassis.calibrate();
+	monkeChassis.setPose(44.5, 0, 270);
+	monkeConveyor.foldConveyor();
+	
 
 }
 
@@ -66,10 +71,9 @@ void autonomous() {}
  */
 void opcontrol() {
 	 // Creates a motor on port 2 with the green gearset and degrees as the encoder units
-	
+
 	while (true) {
 		updateControlKeybinds();
-		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
