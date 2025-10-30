@@ -9,19 +9,18 @@ const char* poseTexts[3] = {"X: 0.00 in", "Y: 0.00 in", "A: 0.00 deg"};
 lv_obj_t* poseLabels[3];
 
 void poseTimer(lv_timer_t* timer) {
-    currentPose = monkeChassis.getPose();
     char buffer[100];
 
-    snprintf(buffer, sizeof(buffer), "X: %.2f", currentPose.x);
+    snprintf(buffer, sizeof(buffer), "X: %.2f", monkeChassis.getPose().x);
     lv_label_set_text(poseLabels[0], buffer);
-    printf("X: %.2f\n", currentPose.x);
+    //printf("X: %.2f\n", monkeChassis.getPose().x);
 
-    snprintf(buffer, sizeof(buffer), "Y: %.2f", currentPose.y);
+    snprintf(buffer, sizeof(buffer), "Y: %.2f", monkeChassis.getPose().y);
     lv_label_set_text(poseLabels[1], buffer);
-    printf("Y: %.2f\n", currentPose.y);
-    snprintf(buffer, sizeof(buffer), "A: %.2f", currentPose.theta);
+    //printf("Y: %.2f\n", monkeChassis.getPose().y);
+    snprintf(buffer, sizeof(buffer), "A: %.2f", monkeChassis.getPose().theta);
     lv_label_set_text(poseLabels[2], buffer);
-    printf("Theta: %.2f\n", currentPose.theta);
+    //printf("Theta: %.2f\n", monkeChassis.getPose().theta);
 
 }
 

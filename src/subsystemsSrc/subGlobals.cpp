@@ -1,15 +1,11 @@
 #include "subsystems/subGlobals.hpp"
 #include "roboConfig.hpp"
 #include "classDefine.hpp"
-
-
 /*
  * Global instances of various subsystems
  * This file is used to declare global variables that will be used across multiple files. 
  */
-
 /* Tasks */
-
 pros::Task* odomTask = nullptr;
 
  /* Brain & Controller */
@@ -26,9 +22,15 @@ pros::adi::Pneumatics foldPiston1(FOLD_PISTON_1_PORT, isConveyorUp);
 pros::adi::Pneumatics foldPiston2(FOLD_PISTON_2_PORT, isConveyorUp);
 pros::adi::Pneumatics matchLoadPiston(MATCH_LOAD_PORT, false);
 
+/* Conveyor Motors */
+pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
+
+Conveyor monkeConveyor(backRollersMotor, intakeMotor, topRollerMotor, CONVEYOR_SPEED);
+
 /* Drivetrain */
-
-
 pros::MotorGroup leftDrivetrain({LEFT_DRIVETRAIN_PORTS[0],LEFT_DRIVETRAIN_PORTS[1], LEFT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 pros::MotorGroup rightDrivetrain({RIGHT_DRIVETRAIN_PORTS[0], RIGHT_DRIVETRAIN_PORTS[1], RIGHT_DRIVETRAIN_PORTS[2]}, pros::MotorGearset::blue, pros::MotorEncoderUnits::degrees);
 lemlib::Drivetrain monkeDrivetrain(&leftDrivetrain,
@@ -36,16 +38,8 @@ lemlib::Drivetrain monkeDrivetrain(&leftDrivetrain,
                                     13, // track width
                                     lemlib::Omniwheel::NEW_275, 
                                     450, // drivetrain rpm
-                                    2); 
-/* Conveyor motors must be constructed before any object that holds references to them */
-pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor backRollersMotor(BACK_ROLLERS_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-pros::Motor topRollerMotor(TOP_ROLLER_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-
-pros::Motor testMotor(TEST_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
-
-Conveyor monkeConveyor(backRollersMotor, intakeMotor, topRollerMotor, CONVEYOR_SPEED);
-
+                                    2);
+                                    
 lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, -4.25);
 lemlib::TrackingWheel verticalTrackingWheel(&verticalRotaion, lemlib::Omniwheel::NEW_2, 0);
 
@@ -55,15 +49,14 @@ lemlib::OdomSensors sensors(&verticalTrackingWheel,
                             nullptr,
                             &imu);
 
-
 // lateral PID controller
 lemlib::ControllerSettings lateral_controller(50, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               3, // derivative gain (kD)
                                               0, // anti windup
-                                              .5, // small error range, in inches
+                                              1, // small error range, in inches
                                               1000, // small error range timeout, in milliseconds
-                                              3, // large error range, in inches
+                                              5, // large error range, in inches
                                               2000, // large error range timeout, in milliseconds
                                               3 // maximum acceleration (slew)
 );
@@ -97,11 +90,3 @@ lemlib::Chassis monkeChassis(monkeDrivetrain,
                             &throttleCurve,
                             &turnCurve
 );
-
-
-
-// Avoid calling getPose() at static initialization; sample pose at runtime instead
-lemlib::Pose currentPose(0, 0, 0);
-
-
-

@@ -30,6 +30,7 @@ extern lv_obj_t* terminal_screen;
 extern lv_obj_t* terminalTextArea;
 extern lv_obj_t* medic_screen;
 extern lv_obj_t* calib_screen;
+extern lv_style_t blue_grad_style;
 extern bool isCalibrated;
 
 void lvgl_task_fn(void*);
@@ -37,7 +38,7 @@ void lvgl_task_fn(void*);
 void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p);
 
 void initializeGUI();
-
+void setupStyles();
 void containerStyle(lv_obj_t* parent);
 void buttonSetup(lv_obj_t* parent);
 void screenSetup(lv_obj_t* parent);

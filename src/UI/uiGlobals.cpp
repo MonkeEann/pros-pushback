@@ -13,6 +13,8 @@ lv_obj_t *terminalTextArea = nullptr;
 lv_obj_t *medic_screen = nullptr;
 lv_obj_t *calib_screen = nullptr;
 lv_obj_t* calibLabel;
+
+lv_style_t blue_grad_style;
 bool isCalibrated = false;
 
 void containerStyle(lv_obj_t* parent){
@@ -152,7 +154,23 @@ void exitButtonCb(lv_event_t *e)
     lv_obj_t *btn = lv_event_get_target_obj(e);
     lv_screen_load_anim(home_screen, LV_SCR_LOAD_ANIM_FADE_IN, 300, 0, false);
 }
+void setupStyles(){
+    lv_style_init(&blue_grad_style);
+    lv_style_set_text_font(&blue_grad_style, &lv_font_montserrat_20);
+    lv_style_set_bg_color(&blue_grad_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
 
+     //Inside Button Shadow
+    lv_style_set_bg_grad_color(&blue_grad_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
+    lv_style_set_bg_grad_opa(&blue_grad_style, LV_OPA_10);
+    lv_style_set_bg_grad_dir(&blue_grad_style, LV_GRAD_DIR_VER);
+
+    // SET SHADOW
+    lv_style_set_shadow_width(&blue_grad_style, 8);
+    lv_style_set_shadow_color(&blue_grad_style, lv_palette_darken(LV_PALETTE_GREY, 4));
+    lv_style_set_shadow_offset_x(&blue_grad_style, -5);
+    lv_style_set_shadow_offset_y(&blue_grad_style, 8);
+    lv_style_set_shadow_opa(&blue_grad_style, LV_OPA_50);
+}
 void buildCalibScreen() {
     calib_screen = lv_obj_create(NULL);
     screenSetup(calib_screen);

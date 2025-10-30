@@ -17,7 +17,8 @@ constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_
 // Boolean flags for robot configuration
 constexpr bool LIVE_TUNING = false;
 constexpr bool UI_TEST_MODE = false; 
- 
+constexpr bool AUTON_ENABLED = true; 
+
 extern bool isConveyorUp;
 
 // PID constants for various subsystems

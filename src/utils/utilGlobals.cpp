@@ -1,9 +1,11 @@
 #include "UI/uiGlobals.hpp"
 #include "utils/utilGlobals.hpp"
+#include "classDefine.hpp"
 #include "subsystems/subGlobals.hpp"
 #include "roboConfig.hpp"
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
+#include <cstdio>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -91,18 +93,14 @@ void getBattery(){
 void debugTaskFn(void* param){
 
     while (true) {
-        printf("Task: %s Priority: %d\n",
-            lvglTask->get_name(),
-            lvglTask->get_priority()
-        );
         auto pose = monkeChassis.getPose();
         master.print(0, 0, "X: %.2f Y: %.2f Theta: %.2f",
-                         pose.x,
-                         pose.y,
-                         pose.theta);
+                    pose.x,
+                    pose.y,
+                    pose.theta);
         getBattery();
 
-        pros::delay(1000);
+        pros::delay(5000);
     }
     
 }
@@ -110,15 +108,32 @@ void debugTaskFn(void* param){
 
 void initRobot(){
     initializeGUI();
-
+    //Check Flags
     if (UI_TEST_MODE)
     {
         printf("UI TEST MODE: Skipping IMU Calibration\n");
     } else {
-        while (imu.is_calibrating() && !isCalibrated)
-    {
-        pros::delay(20);
+        printf("Normal Mode: Calibrating\n");
+        monkeChassis.calibrate();
+        monkeChassis.setPose(44.5, 0, 270);
+        monkeConveyor.foldConveyor();
     }
+    if (LIVE_TUNING)
+    {
+        printf("LIVE TUNING ENABLED: Starting GUI Tuning Task\n");
+    } else {
+        printf("LIVE TUNING DISABLED\n");
+    }
+    if (AUTON_ENABLED)
+    {
+        // Print out Selected Auton
+        printf("AUTON ENABLED | Selected Auton: %s\n", autonMgr.getSelectedAutonName().c_str());
+        char buffer[100];
+        snprintf(buffer, sizeof(buffer), "Selected Auton: %s", autonMgr.getSelectedAutonName().c_str());
+        printToTerminal(1, buffer);
+    } else {
+        printf("AUTON DISABLED\n");
+        printToTerminal(1,"AUTON DISABLED");
     }
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
 

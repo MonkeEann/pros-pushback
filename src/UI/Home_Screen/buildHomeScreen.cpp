@@ -1,7 +1,16 @@
 #include "UI/buildHomeScreen.hpp"
+#include "classDefine.hpp"
+#include "liblvgl/core/lv_obj_event.h"
+#include "liblvgl/core/lv_obj_style.h"
+#include "liblvgl/misc/lv_event.h"
+#include "liblvgl/misc/lv_types.h"
+#include "liblvgl/widgets/label/lv_label.h"
+#include "UI/uiGlobals.hpp"
+#include "roboConfig.hpp"
+#include "utils/utilGlobals.hpp"
+#include <cstdio>
 
 const char* mainLabels[4] = {"Odom", "PID", "Terminal", "Medic"};
-
 void buildHomeScreen() {
 
     screenSetup(home_screen);
@@ -126,10 +135,30 @@ void buildMainButtons(){
 
 }
 
-lv_obj_t* toggleable[3];
-lv_obj_t* toggle_labels[3];
-const char* toggleOff[3] = {"Auton: 1", "Blue", "Left"};
-const char* toggleOn[3] = {"Auton: 2", "Red", "Right"};
+void autonCB(lv_event_t *e){
+    int states = autonMgr.getAutonNum();
+    lv_obj_t* btn = lv_event_get_target_obj(e);
+        // Get current selection index
+    static int current = 0;
+    current = (current + 1) % states;
+
+    autonMgr.selectAuton(current);
+    lv_label_set_text(autonSwitcherLabel, autonMgr.getSelectedAutonName().c_str());
+
+    // Update terminal with selected auton
+    printf("Selected Auton: %s\n", autonMgr.getSelectedAutonName().c_str());
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Selected Auton: %s", autonMgr.getSelectedAutonName().c_str());
+    printToTerminal(1, buffer);
+}
+
+lv_obj_t* toggleable[2];
+lv_obj_t* autonSwitcher;
+lv_obj_t* autonSwitcherLabel;
+lv_obj_t* toggle_labels[2];
+const char* toggleOff[2] = {"Match", "Blue"};
+const char* toggleOn[2] = {"Skills", "Red"};
+const double autonSwitcherState = 0;
 
 void toggleCB(lv_event_t* e){
 
@@ -172,26 +201,6 @@ void buildToggles() {
     lv_style_set_shadow_offset_y(&team_pressed_style, 8);
     lv_style_set_shadow_opa(&team_pressed_style, LV_OPA_50);
 
-    static lv_style_t team_style;
-    lv_style_init(&team_style);
-    lv_style_set_text_font(&team_style, &lv_font_montserrat_20);
-    lv_style_set_bg_color(&team_style, lv_palette_darken(LV_PALETTE_BLUE, 4));
-
-     //Inside Button Shadow
-    lv_style_set_bg_grad_color(&team_style, lv_palette_darken(LV_PALETTE_BLUE_GREY, 3));
-    lv_style_set_bg_grad_opa(&team_style, LV_OPA_10);
-    lv_style_set_bg_grad_dir(&team_style, LV_GRAD_DIR_VER);
-
-    // SET SHADOW
-    lv_style_set_shadow_width(&team_style, 8);
-    lv_style_set_shadow_color(&team_style, lv_palette_darken(LV_PALETTE_GREY, 4));
-    lv_style_set_shadow_offset_x(&team_style, -5);
-    lv_style_set_shadow_offset_y(&team_style, 8);
-    lv_style_set_shadow_opa(&team_style, LV_OPA_50);
-    
-    
-    
-
     static lv_style_t toggle_button_style;
     lv_style_init(&toggle_button_style);
     lv_style_set_text_font(&toggle_button_style, &lv_font_montserrat_20);
@@ -233,8 +242,8 @@ void buildToggles() {
 
     // CREATE TOGGLEABLES
     
-    static int ids[3] = {0, 1, 2};
-    for (int i = 0; i < 3; i++) {
+    static int ids[2] = {0, 1};
+    for (int i = 0; i < 2; i++) {
         toggleable[i] = lv_button_create(switchContainer);
         lv_obj_set_size(toggleable[i], 100, 40);
 
@@ -248,7 +257,7 @@ void buildToggles() {
         lv_obj_add_flag(toggleable[i], LV_OBJ_FLAG_CHECKABLE);
 
         if (ids[i] == 1){
-            lv_obj_add_style(toggleable[i], &team_style, LV_STATE_DEFAULT);
+            lv_obj_add_style(toggleable[i], &blue_grad_style, LV_STATE_DEFAULT);
             lv_obj_add_style(toggleable[i], &team_pressed_style, LV_STATE_CHECKED);
         } else {
             lv_obj_add_style(toggleable[i], &toggle_button_style, 0);
@@ -261,7 +270,29 @@ void buildToggles() {
 
         lv_obj_add_event_cb(toggleable[i], toggleCB, LV_EVENT_VALUE_CHANGED, &ids[i]);
     }
+        autonSwitcher = lv_button_create(switchContainer);
+        lv_obj_set_size(autonSwitcher, 100, 40);
+
+        lv_obj_set_grid_cell(autonSwitcher, 
+            LV_GRID_ALIGN_CENTER, 0, 1, 
+            LV_GRID_ALIGN_CENTER, 2, 1);
+
+        lv_obj_add_style(autonSwitcher, &toggle_button_style, 0);
         
-}
+        autonSwitcherLabel = lv_label_create(autonSwitcher);
+        if(AUTON_ENABLED){
+            lv_label_set_text(autonSwitcherLabel, autonMgr.getAutonName(0).c_str());
+            lv_obj_add_event_cb(autonSwitcher, autonCB, LV_EVENT_CLICKED, nullptr);
+        } else {
+            lv_label_set_text(autonSwitcherLabel, "Auton Off");
+        }
+        lv_obj_center(autonSwitcherLabel);
+        
+        lv_obj_add_flag(autonSwitcher, LV_OBJ_FLAG_CHECKABLE);
+        lv_obj_add_style(autonSwitcher, &blue_grad_style, LV_STATE_CHECKED);
+        
+        }
+        
+
 
 

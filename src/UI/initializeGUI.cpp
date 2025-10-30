@@ -91,5 +91,7 @@ void initializeGUI() {
     if (isScreensInit){
         printToTerminal(9, "GUI STATUS: ACTIVE");
         PIDScreenInit();
+        setupStyles();
     }
+    
 }
