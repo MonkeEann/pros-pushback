@@ -2,6 +2,8 @@
 #include "classDefine.hpp"
 #include "liblvgl/core/lv_obj_event.h"
 #include "liblvgl/core/lv_obj_style.h"
+#include "liblvgl/core/lv_obj_style_gen.h"
+#include "liblvgl/font/lv_font.h"
 #include "liblvgl/misc/lv_event.h"
 #include "liblvgl/misc/lv_types.h"
 #include "liblvgl/widgets/label/lv_label.h"
@@ -143,6 +145,7 @@ void autonCB(lv_event_t *e){
     current = (current + 1) % states;
 
     autonMgr.selectAuton(current);
+    autonMgr.setRobotStartPoseToSelectedAuton();
     lv_label_set_text(autonSwitcherLabel, autonMgr.getSelectedAutonName().c_str());
 
     // Update terminal with selected auton
@@ -280,6 +283,7 @@ void buildToggles() {
         lv_obj_add_style(autonSwitcher, &toggle_button_style, 0);
         
         autonSwitcherLabel = lv_label_create(autonSwitcher);
+        lv_obj_set_style_text_font(autonSwitcherLabel, &lv_font_montserrat_16, 0);
         if(AUTON_ENABLED){
             lv_label_set_text(autonSwitcherLabel, autonMgr.getAutonName(0).c_str());
             lv_obj_add_event_cb(autonSwitcher, autonCB, LV_EVENT_CLICKED, nullptr);
@@ -291,8 +295,7 @@ void buildToggles() {
         lv_obj_add_flag(autonSwitcher, LV_OBJ_FLAG_CHECKABLE);
         lv_obj_add_style(autonSwitcher, &blue_grad_style, LV_STATE_CHECKED);
         
-        }
-        
+}        
 
 
 

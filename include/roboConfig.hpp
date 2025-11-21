@@ -57,7 +57,7 @@ constexpr char MATCH_LOAD_PORT = 'D';
 constexpr double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
 constexpr double JOYSTICK_DEADBAND = 3; // Deadband for joystick inputs
 constexpr double DRIVETRAIN_DEADBAND = 10; // Deadband for drivetrain movement
-constexpr double CONVEYOR_SPEED = 0.8; // Speed for the intake conveyor
+constexpr double CONVEYOR_SPEED = 1.0; // Speed for the intake conveyor
 constexpr double INTAKE_SPEED = 1.0; // Speed for the intake motor
 
 

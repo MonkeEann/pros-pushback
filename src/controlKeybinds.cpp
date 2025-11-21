@@ -32,9 +32,8 @@ void updateControlKeybinds() {
         autonMgr.runSelectedAuton();
 
     } else if (master.get_digital_new_press(TEST_BUTTON)){
-        // Test function can be added here
+        //* Test function can be added here
         
-
     } else{
         monkeConveyor.stopConveyor();
     }

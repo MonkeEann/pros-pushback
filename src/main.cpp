@@ -16,6 +16,7 @@
 void initialize() {
 	configureAutons();
 	initRobot();
+	autonMgr.setRobotStartPoseToSelectedAuton();
 }
 
 /**
@@ -35,7 +36,6 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {}
-// pros::Motor motor1(2, pros::E_MOTOR_GEARSET_06, false);
 // If you need a motor instance, use the correct constructor:
 /**
  * Runs the user autonomous code. This function will be started in its own task

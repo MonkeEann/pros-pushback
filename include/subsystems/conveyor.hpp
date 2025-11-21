@@ -24,6 +24,7 @@ public:
     void storeBlocks();
     void scoreLow();
     void scoreMid();
+    void scoreMid(double speed);
     void scoreHigh();
     void stopConveyor();
     void matchLoad();
