@@ -16,11 +16,13 @@ pros::Imu imu(20);
 pros::AIVision monke_vision(1);
 
 pros::Rotation horizontalRotation(11);
-pros::Rotation verticalRotaion(12);
+pros::Rotation verticalRotaion(19);
 
 pros::adi::Pneumatics foldPiston1(FOLD_PISTON_1_PORT, isConveyorUp);
 pros::adi::Pneumatics foldPiston2(FOLD_PISTON_2_PORT, isConveyorUp);
 pros::adi::Pneumatics matchLoadPiston(MATCH_LOAD_PORT, false);
+pros::adi::Pneumatics descorePiston(DESCORE_PISTON_PORT, false);
+
 
 /* Conveyor Motors */
 pros::Motor intakeMotor(INTAKE_MOTOR_PORT, pros::MotorGearset::green, pros::MotorEncoderUnits::degrees);
@@ -52,7 +54,7 @@ lemlib::OdomSensors sensors(&verticalTrackingWheel,
 // lateral PID controller
 lemlib::ControllerSettings lateral_controller(20, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              5, // derivative gain (kD)
+                                              7, // derivative gain (kD)
                                               0, // anti windup
                                               .5, // small error range, in inches
                                               200, // small error range timeout, in milliseconds

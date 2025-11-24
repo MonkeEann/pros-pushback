@@ -10,6 +10,7 @@ constexpr pros::controller_digital_e_t SCORE_HIGH_BUTTON = pros::E_CONTROLLER_DI
 constexpr pros::controller_digital_e_t STORE_BUTTON = pros::E_CONTROLLER_DIGITAL_L2;
 constexpr pros::controller_digital_e_t MATCH_LOAD_BUTTON = pros::E_CONTROLLER_DIGITAL_X;
 constexpr pros::controller_digital_e_t FOLD_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+constexpr pros::controller_digital_e_t DESCORE_BUTTON = pros::E_CONTROLLER_DIGITAL_UP;
 constexpr pros::controller_digital_e_t AUTO_BUTTON = pros::E_CONTROLLER_DIGITAL_DOWN;
 constexpr pros::controller_digital_e_t TEST_BUTTON = pros::E_CONTROLLER_DIGITAL_LEFT;
 
@@ -51,6 +52,7 @@ constexpr int TEST_PORT = 20;
 constexpr char FOLD_PISTON_1_PORT = 'B';
 constexpr char FOLD_PISTON_2_PORT = 'C';
 constexpr char MATCH_LOAD_PORT = 'D';
+constexpr char DESCORE_PISTON_PORT = 'E';
 
 // Subsystem Settings
 

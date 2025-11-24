@@ -28,12 +28,16 @@ void updateControlKeybinds() {
     } else if (master.get_digital_new_press(FOLD_BUTTON)){
         monkeConveyor.foldConveyor();
 
-    } else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
+    } else if(master.get_digital_new_press(DESCORE_BUTTON)){
+        static bool descoreState = false;
+        descoreState = !descoreState;
+        descorePiston.set_value(descoreState);
+    }else if(!monkeChassis.isInMotion() && master.get_digital_new_press(AUTO_BUTTON)){
         autonMgr.runSelectedAuton();
 
     } else if (master.get_digital_new_press(TEST_BUTTON)){
         //* Test function can be added here
-        
+
     } else{
         monkeConveyor.stopConveyor();
     }

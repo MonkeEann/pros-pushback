@@ -35,12 +35,11 @@ class autonManager {
     void setRobotStartPoseToSelectedAuton();
     
 };
-
+void jerkMotion();
 void configureAutons();
 void LAutonCenterLong();
 void RAutonCenterLong();
 void LWinPoint();
 void taxiAuton();
-void longOnlyLeftAuton();
-void longOnlyRightAuton();
+void skillsAuton();
 #endif // AUTO_GLOBALS_HPP

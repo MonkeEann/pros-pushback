@@ -41,6 +41,7 @@ extern pros::Motor topRollerMotor;
 extern pros::adi::Pneumatics foldPiston1;
 extern pros::adi::Pneumatics foldPiston2;
 extern pros::adi::Pneumatics matchLoadPiston;
+extern pros::adi::Pneumatics descorePiston;
 
 // current Pose
 extern lemlib::Pose currentPose;

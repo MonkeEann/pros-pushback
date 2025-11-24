@@ -1,6 +1,7 @@
 #include "auton/autoGlobals.hpp"
 #include "classDefine.hpp"
 #include "lemlib/pose.hpp"
+#include "pros/rtos.hpp"
 #include "subsystems/subGlobals.hpp"
 #include <cstdio>
 #include <iostream>
@@ -80,7 +81,10 @@ void autonManager::setRobotStartPoseToSelectedAuton(){
         std::cout << "No auton selected to set robot pose." << std::endl;
     }
 }
-
+void jerkMotion(){
+    monkeChassis.moveToPose(monkeChassis.getPose().x + 5, monkeChassis.getPose().y, monkeChassis.getPose().theta, 1000, {.forwards = false, .minSpeed = 100});
+    monkeChassis.moveToPose(monkeChassis.getPose().x - 5, monkeChassis.getPose().y, monkeChassis.getPose().theta, 1000, {.minSpeed = 80}, true);
+}
 void LAutonCenterLong(){
     printf("Running Left Winpoint Auton \n");
     //* MOVE TO 3 BLOCKS 
@@ -88,7 +92,7 @@ void LAutonCenterLong(){
     //* Start intaking blocks
     monkeConveyor.storeBlocks();
     /* MOVE TO CENTER HIGH GOAL */
-    monkeChassis.moveToPose(8.5, -7.5,315, 5000, {.horizontalDrift = 8, .minSpeed = 70}, true);
+    monkeChassis.moveToPose(8, -7.5,315, 5000, {.horizontalDrift = 8, .minSpeed = 55                        }, true);
     monkeChassis.turnToHeading(310, 1000, {.maxSpeed = 60});
     
     ////monkeChassis.moveToPoint(9, -9, 3000, {.maxSpeed = 70}, true); // Move in front of center high goal
@@ -100,22 +104,22 @@ void LAutonCenterLong(){
     monkeConveyor.stopConveyor();
     
     // MOVE IN FRONT OF MATCHLOADER 
-    monkeChassis.moveToPoint(44,-45, 3000, {.forwards = false, .maxSpeed = 65}, false);
+    monkeChassis.moveToPoint(44,-45, 3000, {.forwards = false, .maxSpeed =70}, false);
     monkeChassis.turnToHeading(90, 2000, {}, true);
     
     // MATCHLOAD 
     monkeConveyor.matchLoad();
     monkeConveyor.storeBlocks();
-    monkeChassis.moveToPose(61,-45, 90, 2000, {.maxSpeed = 70, .minSpeed = 50}, true);
-    monkeChassis.moveToPose(61,-45, 90, 850, {.maxSpeed = 70, .minSpeed = 50}, true);    
+    monkeChassis.moveToPose(61,-45, 90, 1350, {.maxSpeed = 85}, true);
     
     // SCORE ON LONG GOAL 
     monkeChassis.moveToPose(40,-45, 90, 4000, {.forwards = false, .maxSpeed = 80, .minSpeed = 60});
     monkeConveyor.matchLoad(); // Flip Matchloader Back Up
 
     monkeChassis.turnToHeading(270, 2000, {.maxSpeed = 70}, false);
-    monkeChassis.moveToPose(26.5,-45.5, 270, 4000, {.maxSpeed = 55, .minSpeed = 55}, true);
-    monkeChassis.turnToHeading(270, 1000);
+    monkeChassis.moveToPose(26,-45.5, 272, 4000, {.maxSpeed = 55, .minSpeed = 55}, true);
+    monkeChassis.moveToPose(25,-45.5, 272, 4000, {.maxSpeed = 60, .minSpeed = 60}, true);
+    monkeChassis.turnToHeading(275, 1000);
     monkeConveyor.scoreHigh();
     pros::delay(5000); 
     
@@ -128,8 +132,8 @@ void RAutonCenterLong(){
      // Start intaking blocks
     monkeConveyor.storeBlocks();
     /* MOVE TO CENTER HIGH GOAL */
-    monkeChassis.moveToPose(8.75, 7.75,225, 5000, {.horizontalDrift = 8, .minSpeed = 70}, true);
-    monkeChassis.turnToHeading(220, 1000, {.maxSpeed = 60});
+    monkeChassis.moveToPose(8, 7.5,225, 5000, {.horizontalDrift = 8, .minSpeed = 70}, true);
+    monkeChassis.turnToHeading(215, 1000, {.maxSpeed = 60});
     
     //monkeChassis.moveToPoint(9, -9, 3000, {.maxSpeed = 70}, true); // Move in front of center high goal
     pros::delay(250); // Delay So blocks don't score before Aligned
@@ -140,15 +144,14 @@ void RAutonCenterLong(){
     monkeConveyor.stopConveyor();
     
     // MOVE IN FRONT OF MATCHLOADER 
-    monkeChassis.moveToPoint(44,46, 3000, {.forwards = false, .maxSpeed = 65}, false);
+    monkeChassis.moveToPoint(44,46, 3000, {.forwards = false, .maxSpeed = 75}, false);
     monkeChassis.turnToHeading(90, 2000, {}, true);
 
     // MATCHLOAD 
     monkeConveyor.matchLoad();
     monkeConveyor.storeBlocks();
-    monkeChassis.moveToPose(61,46, 90, 2000, {.maxSpeed = 70, .minSpeed = 50}, true);
-    monkeChassis.moveToPose(61,46, 90, 2000, {.maxSpeed = 70, .minSpeed = 50}, true);
-    pros::delay(500);
+    monkeChassis.moveToPose(61,47, 90, 2000, {.maxSpeed = 70, .minSpeed = 50}, true);
+    monkeChassis.moveToPose(61,47, 90, 2000, {.maxSpeed = 70, .minSpeed = 50}, true);
     
     
     // SCORE ON LONG GOAL 
@@ -156,8 +159,8 @@ void RAutonCenterLong(){
     monkeConveyor.matchLoad(); // Flip Matchloader Back Up
 
     monkeChassis.turnToHeading(270, 2000, {.maxSpeed = 70}, false);
-    monkeChassis.moveToPose(27,47.4, 270, 4000, {.maxSpeed = 55, .minSpeed = 55}, true);
-    monkeChassis.turnToHeading(270, 1000);
+    monkeChassis.moveToPose(25.,47, 270, 4000, {.maxSpeed = 45, .minSpeed = 40}, true);
+    monkeChassis.turnToHeading(275, 1000);
     monkeConveyor.scoreHigh();
     pros::delay(5000);     
 }
@@ -207,12 +210,61 @@ void taxiAuton(){
     printf("Running Taxi Auton \n");
     monkeChassis.moveToPoint(monkeChassis.getPose().x + 10, monkeChassis.getPose().y, 5000);
 }
+void skillsAuton(){
+    printf("Running Skills Auton \n");
+    monkeConveyor.storeBlocks(); // Start Intaking Blocks
+    monkeChassis.moveToPose(-45, -50, 270, 3000, {.maxSpeed = 70}, false); // Move To Red Right Matchloader
+    monkeChassis.turnToHeading(270, 2000, {.maxSpeed = 60}, false);
+    monkeConveyor.matchLoad(); // Lower Matchloader
+    monkeConveyor.storeBlocks(); // Start Intaking Blocks
+    monkeChassis.moveToPose(-62.5, -50, 270, 3000, {.maxSpeed = 90, .minSpeed = 85}); // Ensure It goes into matchloader
+    monkeChassis.moveToPose(-62.5, -50, 270, 2000, {.maxSpeed = 90, .minSpeed = 85}); // Ensure It goes into matchloader
+    pros::delay(2000); // Wait for blocks to loader
+    monkeConveyor.stopConveyor();
+    monkeConveyor.matchLoad(); // Raise Matchloader
+    monkeChassis.moveToPose(-40, -67, 270, 3000, {.forwards = false}); // Back away from matchloader
+    monkeChassis.moveToPose(35, -67, 270, 3000, {.forwards = false, .maxSpeed = 75}); // Head to blue right matchloader
+    monkeChassis.moveToPose(53, -54, 270, 3000, {.forwards = false, .maxSpeed = 75}, false); // Line up with Long goal
+    //jerkMotion(); 
+    monkeChassis.moveToPose(35.75, -54.75, 270, 3000, {.maxSpeed = 60}, false); // Align with long goal   
+    monkeConveyor.scoreHigh(); // Score on long goal
+    pros::delay(4000);
+    monkeChassis.moveToPose(45, -54, 270, 3000, {.forwards = false, .maxSpeed = 60}, true); // Back away from long goal
+    monkeChassis.turnToHeading(90, 3000, {.maxSpeed = 60}, true); // Turn Around
+    monkeConveyor.matchLoad();
+    monkeConveyor.storeBlocks(); // Start Intaking Blocks
+    monkeChassis.moveToPose(64, -53.5, 93, 3000, {.maxSpeed = 90, .minSpeed = 90}); // Move into Blue right matchloader
+    monkeChassis.moveToPose(64, -54, 93, 2000, {.minSpeed = 85}); // Move into Blue right matchloader
+    pros::delay(2000);
+    monkeConveyor.stopConveyor();
+    monkeConveyor.matchLoad(); // Raise Matchloader
+    monkeChassis.moveToPose(45, -53, 90, 1000, {.forwards = false, .minSpeed = 85}, false); // Move into Blue right matchloader  
+    monkeChassis.turnToHeading(270, 3000, {.maxSpeed = 60}, true); // Turn Around
+    monkeChassis.moveToPose(34.5, -53.25, 270, 3000, {.maxSpeed = 60}, false); // Align with long goal   
+    monkeConveyor.scoreHigh(); // Score on long goal
+    pros::delay(4000);
+    monkeChassis.moveToPose(53, -53, 90, 1000, {.forwards = false, .minSpeed = 85}, true); // Move into Blue right matchloader  
+    monkeChassis.turnToHeading(0, 3000, {.maxSpeed = 60}, true); // Turn Around 
+
+    monkeChassis.moveToPose(53, -26, 0, 1000, {.minSpeed = 85}, false); // Move into Blue right matchloader  
+    monkeChassis.moveToPose(-65, -30, 270, 5000, {.minSpeed = 85}, false); // Move into Blue right matchloader  
+    monkeChassis.moveToPose(-68, -30, 270, 5000, {.minSpeed = 20}, true); // Move into Blue right matchloader  
+    monkeChassis.turnToHeading(0, 3000, {.maxSpeed = 60}, true); // Turn Around
+    monkeConveyor.scoreLow(); //Push blocks away from bot
+    monkeChassis.moveToPose(-66.5, 0, 0, 3000, {.minSpeed = 90});
+    pros::delay(1500);
+    monkeConveyor.stopConveyor();
+
+
+
+}
 
 void configureAutons(){
     autonMgr.addAuton("L Auton", LAutonCenterLong, lemlib::Pose(62.5, -18, 180));
     autonMgr.addAuton("R Auton", RAutonCenterLong, lemlib::Pose(62.5, 18, 0));
     autonMgr.addAuton("L WP", LWinPoint, lemlib::Pose(62.5, -18, 180));
     autonMgr.addAuton("Taxi", taxiAuton, lemlib::Pose(0, 0, 90));
+    autonMgr.addAuton("Skills", skillsAuton, lemlib::Pose(-62.5, -18, 180));
     
     autonMgr.selectAuton(0); // Default to first auton
     autonMgr.setRobotStartPoseToSelectedAuton();
