@@ -2,10 +2,15 @@
 #include "classDefine.hpp"
 #include "lemlib/pose.hpp"
 #include "pros/rtos.hpp"
+#include "roboConfig.hpp"
 #include "subsystems/subGlobals.hpp"
 #include <cstdio>
 #include <iostream>
+//! Distance Sensors Definitions
+pros::Distance fDistanceSensor(FRONT_DISTANCE_SENSOR_PORT);
+pros::Distance sDistanceSensor(SIDE_DISTANCE_SENSOR_PORT);
 
+//* Class Definitions
 auton::auton(std::string Name, void (*routineFunc)(), lemlib::Pose startPose)
     :name(Name), routine(routineFunc), startPose(startPose) {}
 
@@ -81,6 +86,52 @@ void autonManager::setRobotStartPoseToSelectedAuton(){
         std::cout << "No auton selected to set robot pose." << std::endl;
     }
 }
+
+//* Function Definitions
+void updateDistance(){
+    double distance = fDistanceSensor.get_distance();
+
+    double theta = monkeChassis.getPose().theta;
+    double deltaTheta;
+    double x = monkeChassis.getPose().x;
+    double y = monkeChassis.getPose().y;
+
+    while(theta < 0) theta += 360;
+    while(theta >= 360) theta -= 360;
+
+    const double ANGLE_TOLERANCE = 2.0; // degrees
+    /* 
+    ! To calculate the position we take the adjustedDistance and subtract it from the position of the wall on the field
+    ! Since we have (0, 0) at the center of the field and the entire field is 144in x 144in, the walls are at +/- 72in, they are 2in thick making the inside edge at +/- 70in
+    */
+    // Facing Positive Y Direction
+    if (fabs(theta - 0) <= ANGLE_TOLERANCE || fabs(theta - 360) <= ANGLE_TOLERANCE){
+        double deltaTheta = theta;
+        if (deltaTheta > 180) deltaTheta = 360 - deltaTheta;
+
+        double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
+        y = 70 - adjustedDistance;
+    } 
+    else if(fabs(theta - 180) <= ANGLE_TOLERANCE){
+        // If it is facing 180 degrees the y axis is negative so the wall is at y = -72
+        // Instead of subtracting we add the adjusted distance
+        double deltaTheta = fabs(180 - theta);
+        double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
+        y = -70 + adjustedDistance;
+    } 
+    else if (fabs(theta - 90) <= ANGLE_TOLERANCE){
+        double deltaTheta = fabs(90 - theta);
+        double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
+        x = 70 - adjustedDistance;
+        } 
+    else if(fabs(theta - 270) <= ANGLE_TOLERANCE){
+        double deltaTheta = fabs(270 - theta);
+        double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
+        x = -70 + adjustedDistance;
+    }
+    monkeChassis.setPose(x, y, monkeChassis.getPose().theta);
+}
+
 void jerkMotion(){
     monkeChassis.moveToPose(monkeChassis.getPose().x + 5, monkeChassis.getPose().y, monkeChassis.getPose().theta, 1000, {.forwards = false, .minSpeed = 100});
     monkeChassis.moveToPose(monkeChassis.getPose().x - 5, monkeChassis.getPose().y, monkeChassis.getPose().theta, 1000, {.minSpeed = 80}, true);
@@ -98,7 +149,7 @@ void LAutonCenterLong(){
     ////monkeChassis.moveToPoint(9, -9, 3000, {.maxSpeed = 70}, true); // Move in front of center high goal
     pros::delay(250); // Delay So blocks don't score before Aligned
     
-    //ff SCORE ON CENTER UPPER GOAL 
+    //* SCORE ON CENTER UPPER GOAL 
     monkeConveyor.scoreMid(); // Score the blocks
     pros::c::delay(2000); // Wait for scoring to finish
     monkeConveyor.stopConveyor();
@@ -255,7 +306,7 @@ void skillsAuton(){
     pros::delay(1500);
     monkeConveyor.stopConveyor();
 
-
+    
 
 }
 

@@ -116,7 +116,6 @@ void initRobot(){
         printf("Normal Mode: Calibrating\n");
         monkeChassis.calibrate();
         monkeChassis.setPose(44.5, 0, 270);
-        monkeConveyor.foldConveyor();
     }
     if (LIVE_TUNING)
     {
@@ -131,10 +130,11 @@ void initRobot(){
         char buffer[100];
         snprintf(buffer, sizeof(buffer), "Selected Auton: %s", autonMgr.getSelectedAutonName().c_str());
         printToTerminal(1, buffer);
+        autonMgr.setRobotStartPoseToSelectedAuton();
     } else {
         printf("AUTON DISABLED\n");
         printToTerminal(1,"AUTON DISABLED");
     }
 	pros::Task debugTask(debugTaskFn, nullptr, "Debug Task");
-
+    monkeConveyor.foldConveyor();
 }

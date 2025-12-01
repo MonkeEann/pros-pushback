@@ -1,10 +1,16 @@
 #ifndef AUTO_GLOBALS_HPP
 #define AUTO_GLOBALS_HPP
 #include "lemlib/pose.hpp"
+#include "pros/distance.hpp"
 #include "string"
 #include "vector"
 #include <string>
+//! Sensor Ports
+// Included in this file because they're only used in auton routines
+extern pros::Distance fDistanceSensor;
+extern pros::Distance sDistanceSensor;
 
+constexpr double DISTANCE_OFFSET = 2.5; // Offset from the front distance sensor to the center of the robot in inches, allows for accurate odometry updates
 class auton {
     private:
         std::string name;
@@ -35,7 +41,11 @@ class autonManager {
     void setRobotStartPoseToSelectedAuton();
     
 };
+//* Helper Functions
 void jerkMotion();
+void updateDistance();
+
+//! Auton Routines
 void configureAutons();
 void LAutonCenterLong();
 void RAutonCenterLong();

@@ -16,7 +16,6 @@
 void initialize() {
 	configureAutons();
 	initRobot();
-	autonMgr.setRobotStartPoseToSelectedAuton();
 }
 
 /**

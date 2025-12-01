@@ -35,27 +35,31 @@ extern double PID_2_KP;
 extern double PID_2_KI;
 extern double PID_2_KD;
 
-// Declare external subsystem objects
-
-// Motor port declarations
+//! ACTUATOR PORTS
+//Drivetrain
 constexpr std::int8_t LEFT_DRIVETRAIN_PORTS[3] = {1, -2, -3}; 
 constexpr std::int8_t RIGHT_DRIVETRAIN_PORTS[3] = {8, -9, 10}; 
 
+//Conveyor
 constexpr int INTAKE_MOTOR_PORT = 4;
 constexpr int BACK_ROLLERS_PORT = 5;
 constexpr int TOP_ROLLER_PORT = -6;
 
-// Test Port
+/* Test Port */
 // We will define a test port for testing purposes, this can be used to test individual motors.
 constexpr int TEST_PORT = 20;
 
+// Pneumatics
 constexpr char FOLD_PISTON_1_PORT = 'B';
 constexpr char FOLD_PISTON_2_PORT = 'C';
 constexpr char MATCH_LOAD_PORT = 'D';
 constexpr char DESCORE_PISTON_PORT = 'E';
 
-// Subsystem Settings
+//! SENSOR PORTS
+constexpr int FRONT_DISTANCE_SENSOR_PORT = 12;
+constexpr int SIDE_DISTANCE_SENSOR_PORT = 13;
 
+// Subsystem Settings
 constexpr double DRIVETRAIN_SPEED = 1.0; // Full speed for the drivetrain
 constexpr double JOYSTICK_DEADBAND = 3; // Deadband for joystick inputs
 constexpr double DRIVETRAIN_DEADBAND = 10; // Deadband for drivetrain movement
