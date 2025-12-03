@@ -56,7 +56,7 @@ constexpr char MATCH_LOAD_PORT = 'D';
 constexpr char DESCORE_PISTON_PORT = 'E';
 
 //! SENSOR PORTS
-constexpr int FRONT_DISTANCE_SENSOR_PORT = 12;
+constexpr int FRONT_DISTANCE_SENSOR_PORT = 7;
 constexpr int SIDE_DISTANCE_SENSOR_PORT = 13;
 
 // Subsystem Settings

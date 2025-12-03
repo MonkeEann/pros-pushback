@@ -8,7 +8,6 @@
 #include <iostream>
 //! Distance Sensors Definitions
 pros::Distance fDistanceSensor(FRONT_DISTANCE_SENSOR_PORT);
-pros::Distance sDistanceSensor(SIDE_DISTANCE_SENSOR_PORT);
 
 //* Class Definitions
 auton::auton(std::string Name, void (*routineFunc)(), lemlib::Pose startPose)
@@ -88,8 +87,8 @@ void autonManager::setRobotStartPoseToSelectedAuton(){
 }
 
 //* Function Definitions
-void updateDistance(){
-    double distance = fDistanceSensor.get_distance();
+void updateOdomWithDistance(){
+    double distance = fDistanceSensor.get()/25.4;
 
     double theta = monkeChassis.getPose().theta;
     double deltaTheta;
@@ -108,26 +107,38 @@ void updateDistance(){
     if (fabs(theta - 0) <= ANGLE_TOLERANCE || fabs(theta - 360) <= ANGLE_TOLERANCE){
         double deltaTheta = theta;
         if (deltaTheta > 180) deltaTheta = 360 - deltaTheta;
+        printf("Facing 0... Calculating Y Position \n");
 
         double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
         y = 70 - adjustedDistance;
+        printf("Updated Y Position: %.2f \n", y);
     } 
     else if(fabs(theta - 180) <= ANGLE_TOLERANCE){
         // If it is facing 180 degrees the y axis is negative so the wall is at y = -72
         // Instead of subtracting we add the adjusted distance
         double deltaTheta = fabs(180 - theta);
-        double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
+        printf("Facing 180... Calculating Y Position \n");
+
+        double straightlineDistance = distance * cos((deltaTheta * (M_PI / 180.0)));
+        double adjustedDistance = DISTANCE_OFFSET + straightlineDistance;
         y = -70 + adjustedDistance;
+        printf("Updated Y Position: %.2f \n", y);
     } 
     else if (fabs(theta - 90) <= ANGLE_TOLERANCE){
         double deltaTheta = fabs(90 - theta);
+        printf("Facing 90... Calculating X Position \n");
+
         double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
         x = 70 - adjustedDistance;
+        printf("Updated X Position: %.2f \n", x);
         } 
     else if(fabs(theta - 270) <= ANGLE_TOLERANCE){
         double deltaTheta = fabs(270 - theta);
+        printf("Facing 270... Calculating X Position \n");
+
         double adjustedDistance = DISTANCE_OFFSET + (distance * cos((deltaTheta * (M_PI / 180.0))));
         x = -70 + adjustedDistance;
+        printf("Updated X Position: %.2f \n", x);
     }
     monkeChassis.setPose(x, y, monkeChassis.getPose().theta);
 }
@@ -274,8 +285,9 @@ void skillsAuton(){
     monkeConveyor.stopConveyor();
     monkeConveyor.matchLoad(); // Raise Matchloader
     monkeChassis.moveToPose(-40, -67, 270, 3000, {.forwards = false}); // Back away from matchloader
-    monkeChassis.moveToPose(35, -67, 270, 3000, {.forwards = false, .maxSpeed = 75}); // Head to blue right matchloader
-    monkeChassis.moveToPose(53, -54, 270, 3000, {.forwards = false, .maxSpeed = 75}, false); // Line up with Long goal
+    monkeChassis.moveToPose(35, -67, 270, 3000, {.forwards = false, .maxSpeed = 75}, false); // Head to blue right matchloader
+    updateOdomWithDistance(); // Update Odom with distance sensor reading
+    /*monkeChassis.moveToPose(53, -54, 270, 3000, {.forwards = false, .maxSpeed = 75}, false); // Line up with Long goal
     //jerkMotion(); 
     monkeChassis.moveToPose(35.75, -54.75, 270, 3000, {.maxSpeed = 60}, false); // Align with long goal   
     monkeConveyor.scoreHigh(); // Score on long goal
@@ -305,7 +317,7 @@ void skillsAuton(){
     monkeChassis.moveToPose(-66.5, 0, 0, 3000, {.minSpeed = 90});
     pros::delay(1500);
     monkeConveyor.stopConveyor();
-
+    */
     
 
 }

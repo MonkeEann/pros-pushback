@@ -37,7 +37,7 @@ void updateControlKeybinds() {
 
     } else if (master.get_digital_new_press(TEST_BUTTON)){
         //* Test function can be added here
-
+        updateOdomWithDistance();
     } else{
         monkeConveyor.stopConveyor();
     }

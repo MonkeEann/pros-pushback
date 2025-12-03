@@ -8,9 +8,8 @@
 //! Sensor Ports
 // Included in this file because they're only used in auton routines
 extern pros::Distance fDistanceSensor;
-extern pros::Distance sDistanceSensor;
 
-constexpr double DISTANCE_OFFSET = 2.5; // Offset from the front distance sensor to the center of the robot in inches, allows for accurate odometry updates
+constexpr double DISTANCE_OFFSET = 8.25; // Offset from the front distance sensor to the center of the robot in inches, allows for accurate odometry updates
 class auton {
     private:
         std::string name;
@@ -43,7 +42,7 @@ class autonManager {
 };
 //* Helper Functions
 void jerkMotion();
-void updateDistance();
+void updateOdomWithDistance();
 
 //! Auton Routines
 void configureAutons();
